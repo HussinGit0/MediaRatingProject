@@ -1,0 +1,14 @@
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\bin\Debug\net8.0\MediaRatingProject.exe
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\bin\Debug\net8.0\MediaRatingProject.deps.json
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\bin\Debug\net8.0\MediaRatingProject.runtimeconfig.json
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\bin\Debug\net8.0\MediaRatingProject.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\bin\Debug\net8.0\MediaRatingProject.pdb
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.AssemblyInfoInputs.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.AssemblyInfo.cs
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.csproj.CoreCompileInputs.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\refint\MediaRatingProject.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.pdb
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\MediaRatingProject.genruntimeconfig.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject\obj\Debug\net8.0\ref\MediaRatingProject.dll
