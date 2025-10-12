@@ -40,10 +40,7 @@
                 _listener.Prefixes.Add(prefix);
             }
 
-            /// TESTING PURPOSES ONLY
-            this.UserDB = new UserStore();
-            this.UserDB.Users.Add(new User("alice", "1234"));
-            ///////////////////////////////////////////
+
         }
 
         public void Start()

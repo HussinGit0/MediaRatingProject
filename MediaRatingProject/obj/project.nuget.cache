@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "n/x5n2mPecs=",
+  "dgSpecHash": "F/C5EzGq9lg=",
   "success": true,
   "projectFilePath": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\MediaRatingProject.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Asyou\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.9\\microsoft.extensions.dependencyinjection.9.0.9.nupkg.sha512",
+    "C:\\Users\\Asyou\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.9\\microsoft.extensions.dependencyinjection.abstractions.9.0.9.nupkg.sha512"
+  ],
   "logs": []
 }

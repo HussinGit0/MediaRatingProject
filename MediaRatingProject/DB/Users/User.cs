@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaRatingProject.DB.Users
 {
-    internal class User: BaseUser
+    public class User: BaseUser
     {
         public User(string Name, string password): base(Name, password) { }
     }

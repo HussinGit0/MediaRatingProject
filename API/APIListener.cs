@@ -14,6 +14,7 @@
     internal class APIListener
     {
         private readonly HttpListener _listener;
+        private readonly RequestHandler _requestHandler;
         private UserStore UserDB;
 
         /// <summary>
@@ -22,7 +23,7 @@
         /// <param name="prefixes"></param>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public APIListener(string[] prefixes)
+        public APIListener(string[] prefixes, RequestHandler requestHandler)
         {
             if (!HttpListener.IsSupported)
             {
@@ -40,19 +41,13 @@
                 _listener.Prefixes.Add(prefix);
             }
 
-            /// TESTING PURPOSES ONLY
-            this.UserDB = new UserStore();
-            this.UserDB.Users.Add(new User("alice", "1234"));
-            ///////////////////////////////////////////
+ 
+            _requestHandler = requestHandler;
         }
 
         public void Start()
         {
             _listener.Start();
-
-            const string TESTREQUEST = "/api/test";
-            const string REGISTERREQUEST = "/api/register";
-            const string LOGINREQUEST = "/api/login";
 
             string body;
 
@@ -65,45 +60,12 @@
                 HttpListenerResponse response = context.Response;
 
                 Console.WriteLine($"[{request.HttpMethod}] {request.Url}");
+                body = GetBody(request);
 
-                if (request.HttpMethod == "GET" && request.Url.AbsolutePath == TESTREQUEST)
-                {
-                    body = GetBody(request);
-
-                    Console.WriteLine($"Received body: {body}");
-
-                    HandleGETRequest(body);
-                }
-
-                if (request.HttpMethod == "POST")
-                {
-                    body = GetBody(request);
-                    if (request.Url.AbsolutePath == LOGINREQUEST)
-                        LoginUser(body);
-
-                    if (request.Url.AbsolutePath == REGISTERREQUEST)
-                        RegisterUser(body);
-                }
+                _requestHandler.HandleRequest(request, body);
 
                 response.StatusCode = 200;
                 response.Close();
-            }
-        }
-
-        private void HandleGETRequest(string body)
-        {
-            if (body == "testing")
-            {
-                Console.WriteLine("Success!");
-            }
-            else if (body == "rnd")
-            {
-                Random rnd = new();
-                Console.WriteLine($"Random number: {rnd.Next()}");
-            }
-            else
-            {
-                Console.WriteLine("Unknown request!");
             }
         }
 
@@ -116,27 +78,6 @@
             }
 
             return body;
-        }
-
-        /// <summary>
-        /// FOR TESTING PURPOSES 
-        /// </summary>
-        /// <param name="body"></param>
-        private void RegisterUser(string body)
-        {
-            var loginRequest = JsonSerializer.Deserialize<LoginRequest>(body)!;
-
-            this.UserDB.Users.Add(new User(loginRequest.Username, loginRequest.Password));
-            Console.WriteLine($"Sucessfully registered {loginRequest.Username}.");
-        }
-
-        /// <summary>
-        /// FOR TESTING PURPOSES 
-        /// </summary>
-        /// <param name="body"></param>
-        private void LoginUser(string body)
-        {
-            var loginRequest = JsonSerializer.Deserialize<LoginRequest>(body)!;
-        }
+        }        
     }
 }
