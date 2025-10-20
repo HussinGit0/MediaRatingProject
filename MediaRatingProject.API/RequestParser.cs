@@ -1,5 +1,8 @@
 ﻿namespace MediaRatingProject.API
 {
+    using MediaRatingProject.API.Interfaces;
+    using MediaRatingProject.API.Requests;
+    using MediaRatingProject.API.Services;
     using System.Net;
 
     public class RequestParser
@@ -11,129 +14,218 @@
             _usersHandler = usersHandler;
         }
 
-        public void HandleRequest(HttpListenerRequest request, string body)
+        public ParsedRequestDTO ParseRequest(HttpListenerRequest request, string body)
         {
             //HttpListenerRequest request = listner.GetContext().Request;
-
+            ParsedRequestDTO parsedRequestDTO;
             switch (request.HttpMethod.ToUpper())
             {
                 case "GET":
-                    HandleGETRequest(request, body);
+                    parsedRequestDTO = ParseGETRequest(request, body);
                     break;
                 case "POST":
-                    HandlePOSTRequest(request, body);
+                    parsedRequestDTO = ParsePOSTRequest(request, body);
                     break;
                 case "PUT":
-                    HandlePUTRequest(request, body);
+                    parsedRequestDTO = ParsePUTRequest(request, body);
                     break;
                 case "DELETE":
-                    HandleDELETERequest(request, body);
+                    parsedRequestDTO =  ParseDELETERequest(request, body);
                     break;
                 default:
+                    parsedRequestDTO = new() { IsSuccessful = false };
                     Console.WriteLine($"Unsupported HTTP method: {request.HttpMethod}");
                     break;
             }
+
+            return parsedRequestDTO;
         }
 
-        private void HandlePOSTRequest(HttpListenerRequest request, string body)
+        private ParsedRequestDTO ParsePOSTRequest(HttpListenerRequest request, string body)
         {
-            Dictionary<string, string> parameters;
+            ParsedRequestDTO requestDTO = new();
+            requestDTO.Body = body;
+            requestDTO.HttpMethod = "POST";
+            requestDTO.IsSuccessful = true; // Assume success until failure.
 
+            Dictionary<string, string> parameters = new();
+
+            // This linear IF-ELSE is ineffecient, but serves its purpose for the intermediate version.
+            // The plan for the final iteration is to create a more robust look-up table for additional effecincy.
             if (request.Url.AbsolutePath == EndPoints.USERS_LOGIN_REQUEST)
+            {
+                requestDTO.Path = EndPoints.USERS_LOGIN_REQUEST;
                 Console.WriteLine("POST: Login requested!");
-
+            }
+            else if (request.Url.AbsolutePath == EndPoints.USERS_REGISTER_REQUEST)
+            {
+                requestDTO.Path = EndPoints.USERS_REGISTER_REQUEST;
+                Console.WriteLine("POST: Registration requested!");
+            }
+            else if (request.Url.AbsolutePath == EndPoints.MEDIA_REQUEST)
+            {
+                requestDTO.Path = EndPoints.MEDIA_REQUEST;
+                Console.WriteLine("POST: Media requested!");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.USERS_PROFILE_REQUEST, request.Url.AbsolutePath, out parameters))
             {
+                requestDTO.Path = EndPoints.USERS_PROFILE_REQUEST;
                 Console.WriteLine($"POST: Profile number {int.Parse(parameters["id"])} requested!");
             }
-
-            else if (request.Url.AbsolutePath == EndPoints.USERS_REGISTER_REQUEST)
-                Console.WriteLine("POST: Registration requested!");
-            else if (request.Url.AbsolutePath == EndPoints.MEDIA_REQUEST)
-                Console.WriteLine("POST: Media requested!");
-
-
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_RATE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_RATE_REQUEST;
                 Console.WriteLine($"POST: Rate media ID {parameters["mediaId"]}");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_FAVORITE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_FAVORITE_REQUEST;
                 Console.WriteLine($"POST: Mark media ID {parameters["mediaId"]} as favorite");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_LIKE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_LIKE_REQUEST;
                 Console.WriteLine($"POST: Like rating ID {parameters["ratingId"]}");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.RATINGS_ID_CONFIRM_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.RATINGS_ID_CONFIRM_REQUEST;
                 Console.WriteLine($"POST: Confirm rating ID {parameters["ratingId"]}");
-
-            // Default fallback
-            else
+            }
+            else  // Default fallback
+            {
+                requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nPOST request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
+            }
+
+            requestDTO.Parameters = parameters;
+            return requestDTO;
         }
 
-        private void HandleGETRequest(HttpListenerRequest request, string body)
+        private ParsedRequestDTO ParseGETRequest(HttpListenerRequest request, string body)
         {
-            Dictionary<string, string> parameters;
+            ParsedRequestDTO requestDTO = new();
+            requestDTO.Body = body;
+            requestDTO.HttpMethod = "POST";
+            requestDTO.IsSuccessful = true; // Assume success until failure.
+
+            Dictionary<string, string> parameters = new();
 
             // User endpoints
             if (RouteMatcher.TryMatch(EndPoints.USERS_PROFILE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.USERS_PROFILE_REQUEST;
                 Console.WriteLine($"GET: Fetch profile for user ID {parameters["userId"]}");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.USERS_RATINGS_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.USERS_RATINGS_REQUEST;
                 Console.WriteLine($"GET: Fetch ratings for user ID {parameters["userId"]}");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.USERS_FAVORITES_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.USERS_FAVORITES_REQUEST;
                 Console.WriteLine($"GET: Fetch favorites for user ID {parameters["userId"]}");
+            }
             else if (RouteMatcher.TryMatch(EndPoints.USERS_RECOMMENDATION_REQUEST, request.Url.AbsolutePath, out parameters))
             {
+                requestDTO.Path = EndPoints.USERS_RECOMMENDATION_REQUEST;
                 var queryType = request.QueryString["type"] ?? "default";
                 Console.WriteLine($"GET: Recommendations for user ID {parameters["userId"]}, type {queryType}");
             }
-            // Media endpoints
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_ID_REQUEST, request.Url.AbsolutePath, out parameters))
-                Console.WriteLine($"GET: Fetch media with ID {parameters["mediaId"]}");            
+            {
+                requestDTO.Path = EndPoints.MEDIA_ID_REQUEST;
+                Console.WriteLine($"GET: Fetch media with ID {parameters["mediaId"]}");
+            }
             else if (request.Url.AbsolutePath == EndPoints.MEDIA_REQUEST)
-                Console.WriteLine("GET: List media entries");            
-            // Leaderboard
+            {
+                requestDTO.Path = EndPoints.MEDIA_REQUEST;
+                Console.WriteLine("GET: List media entries");
+            }
             else if (request.Url.AbsolutePath == EndPoints.LEADERBOARD_REQUEST)
+            {
+                requestDTO.Path = EndPoints.LEADERBOARD_REQUEST;
                 Console.WriteLine("GET: Fetch leaderboard");
-            // Default fallback
+            }
             else
+            {
+                requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nGET request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
+            }
+
+            requestDTO.Parameters = parameters;
+            return requestDTO;
         }
 
-        private void HandlePUTRequest(HttpListenerRequest request, string body)
+        private ParsedRequestDTO ParsePUTRequest(HttpListenerRequest request, string body)
         {
-            Dictionary<string, string> parameters;
+            ParsedRequestDTO requestDTO = new();
+            requestDTO.Body = body;
+            requestDTO.HttpMethod = "POST";
+            requestDTO.IsSuccessful = true; // Assume success until failure.
 
-            // User profile update
+            Dictionary<string, string> parameters = new();
+
             if (RouteMatcher.TryMatch(EndPoints.USERS_PROFILE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.USERS_PROFILE_REQUEST;
                 Console.WriteLine($"PUT: Update profile for user ID {parameters["userId"]}");
-
-            // Media update
+            }
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_ID_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_ID_REQUEST;
                 Console.WriteLine($"PUT: Update media ID {parameters["mediaId"]}");
-
-            // Rating update
+            }
             else if (RouteMatcher.TryMatch(EndPoints.RATINGS_ID_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.RATINGS_ID_REQUEST;
                 Console.WriteLine($"PUT: Update rating ID {parameters["ratingId"]}");
-
+            }
             else
+            {
+                requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nPUT request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
+            }
+
+
+            requestDTO.Parameters = parameters;
+            return requestDTO;
         }
 
-        private void HandleDELETERequest(HttpListenerRequest request, string body)
+        private ParsedRequestDTO ParseDELETERequest(HttpListenerRequest request, string body)
         {
-            Dictionary<string, string> parameters;
+            ParsedRequestDTO requestDTO = new();
+            requestDTO.Body = body;
+            requestDTO.HttpMethod = "POST";
+            requestDTO.IsSuccessful = true; // Assume success until failure.
 
-            // Media delete
+            Dictionary<string, string> parameters = new();
+
             if (RouteMatcher.TryMatch(EndPoints.MEDIA_ID_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_ID_REQUEST;
                 Console.WriteLine($"DELETE: Delete media ID {parameters["mediaId"]}");
-
-            // Media un-favorite
+            }
             else if (RouteMatcher.TryMatch(EndPoints.MEDIA_FAVORITE_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.MEDIA_FAVORITE_REQUEST;
                 Console.WriteLine($"DELETE: Unmark media ID {parameters["mediaId"]} as favorite");
-
-            // Rating delete
+            }
             else if (RouteMatcher.TryMatch(EndPoints.RATINGS_ID_REQUEST, request.Url.AbsolutePath, out parameters))
+            {
+                requestDTO.Path = EndPoints.RATINGS_ID_REQUEST;
                 Console.WriteLine($"DELETE: Delete rating ID {parameters["ratingId"]}");
-
+            }
             else
+            {                
+                requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nDELETE request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
+            }
+
+
+            requestDTO.Parameters = parameters;
+            return requestDTO;
         }
     }
 }

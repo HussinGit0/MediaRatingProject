@@ -1,14 +1,32 @@
 ﻿namespace MediaRatingProject.API
 {
+    using MediaRatingProject.API.Interfaces;
+    using MediaRatingProject.API.Requests;
+    using MediaRatingProject.API.Services;
     //using MediaRatingProject.DB.Users;
     using System.Text.Json;
-    using MediaRatingProject.API.Requests;
 
     public class UsersHandler
     {
         //private readonly UserStore _userStore;
 
-        public UsersHandler() { }
+        private readonly ITokenService _jwtService;
+
+        public UsersHandler(ITokenService jwtService)
+        {
+            _jwtService = jwtService;
+        }
+
+        public string Login(string username, string password)
+        {
+            // TODO: Validate user credentials from DB
+            if (username == "mustermann" && password == "max")
+            {
+                return _jwtService.GenerateToken(username);
+            }
+
+            return null;
+        }
         /*public UsersHandler(UserStore userStore)
         {
             _userStore = userStore;

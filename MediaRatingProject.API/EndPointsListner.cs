@@ -3,6 +3,7 @@
     using System.Net;
     using System.IO;
     using System.Text.Json;
+    using MediaRatingProject.API.Requests;
 
     /// <summary>
     /// A basic listener class that listens to HTTP requests and handles them.
@@ -60,7 +61,7 @@
                 Console.WriteLine($"[{request.HttpMethod}] {request.Url}");
                 body = GetBody(request);
 
-                _requestHandler.HandleRequest(request, body);
+                ParsedRequestDTO requestDTO = _requestHandler.ParseRequest(request, body);
 
                 response.StatusCode = 200;
                 response.Close();
