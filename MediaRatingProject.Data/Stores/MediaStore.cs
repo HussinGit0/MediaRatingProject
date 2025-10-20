@@ -1,4 +1,5 @@
 ﻿using MediaRatingProject.Data.Media;
+using MediaRatingProject.Data.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MediaRatingProject.Data.Stores
 {
-    internal class MediaStore
+    public class MediaStore
     {
         /// <summary>
         /// ID counter to assign unique IDs to each media added. It never goes down, even if media is removed.
@@ -17,7 +18,7 @@ namespace MediaRatingProject.Data.Stores
 
         public MediaStore()
         {
-            _idCount = 0;
+            _idCount = 1;
             _mediaStore = new Dictionary<int, BaseMedia>();
         }
 
@@ -36,6 +37,13 @@ namespace MediaRatingProject.Data.Stores
             return true;
         }
 
+        public BaseMedia GetMediaById(int id)
+        {
+            _mediaStore.TryGetValue(id, out var media);
+            return media;
+        }
+
+
         public bool RemoveMedia(int mediaId)
         {           
             return _mediaStore.Remove(mediaId);
@@ -50,6 +58,11 @@ namespace MediaRatingProject.Data.Stores
             }
 
             return false;
+        }
+
+        public IReadOnlyCollection<BaseMedia> GetAllMedia()
+        {
+            return _mediaStore.Values.ToList().AsReadOnly();
         }
     }
 }

@@ -10,10 +10,11 @@
     /// Contains only testing functionality at the moment.
     /// Based on https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0
     /// </summary>
-    public class EndPointsListner
+    public class APIListener
     {
         private readonly HttpListener _listener;
-        private readonly RequestParser _requestHandler;
+        private readonly RequestParser _requestParser;
+        private readonly RequestHandler _requestHandler;
         //private UserStore UserDB;
 
         /// <summary>
@@ -22,7 +23,7 @@
         /// <param name="prefixes"></param>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public EndPointsListner(string[] prefixes, RequestParser requestHandler)
+        public APIListener(string[] prefixes, RequestParser parser, RequestHandler handler)
         {
             if (!HttpListener.IsSupported)
             {
@@ -41,7 +42,8 @@
             }
 
  
-            _requestHandler = requestHandler;
+            _requestParser = parser;
+            _requestHandler = handler;
         }
 
         public void Start()
@@ -61,9 +63,30 @@
                 Console.WriteLine($"[{request.HttpMethod}] {request.Url}");
                 body = GetBody(request);
 
-                ParsedRequestDTO requestDTO = _requestHandler.ParseRequest(request, body);
+                ParsedRequestDTO requestDTO = _requestParser.ParseRequest(request, body);
 
-                response.StatusCode = 200;
+                if (requestDTO.HttpMethod == "POST" && requestDTO.Path == EndPoints.MEDIA_REQUEST)
+                {
+                    Console.WriteLine("Gonna Create Media");
+                }
+
+                ResponseHandler responseHandler = _requestHandler.HandleRequest(requestDTO);
+
+                response.StatusCode = responseHandler.StatusCode;
+
+                var payload = new
+                {
+                    message = responseHandler.Message,
+                    body = responseHandler.Body
+                };
+
+                string jsonResponse = System.Text.Json.JsonSerializer.Serialize(payload);
+                using (StreamWriter writer = new StreamWriter(response.OutputStream))
+                {
+                    Console.Write(jsonResponse);
+                    writer.Write(jsonResponse);
+                }
+
                 response.Close();
             }
         }

@@ -10,6 +10,8 @@
         public List<Rating> RatedMedia { get; set; }
         public List<Favorite> FavoriteMedia { get; set; }
 
+        public BaseUser() { }
+
         public BaseUser(string name, string password)
         {
             this.Username = name;

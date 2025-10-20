@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Requests\GET\" />
-    <Folder Include="Requests\DELETE\" />
-    <Folder Include="Requests\PUT\" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MediaRatingProject.Data\MediaRatingProject.Data.csproj" />
   </ItemGroup>
 
 </Project>

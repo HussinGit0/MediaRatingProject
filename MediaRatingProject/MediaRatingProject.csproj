@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediaRatingProject.API\MediaRatingProject.API.csproj" />
+    <ProjectReference Include="..\MediaRatingProject.Data\MediaRatingProject.Data.csproj" />
   </ItemGroup>
 
 </Project>
