@@ -22,7 +22,7 @@
             // Manual set up of the project with dependancy injection.
             var userController = new UsersController(new UserStore(), jwtService);
             var mediaController = new MediaController(new MediaStore());            
-            var requestParser = new RequestParser(userController);
+            var requestParser = new RequestParser();
             var requestHandler = new RequestHandler(userController, mediaController);  
 
             APIListener listener = new(prefix, requestParser, requestHandler);

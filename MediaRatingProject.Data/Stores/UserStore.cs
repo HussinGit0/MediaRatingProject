@@ -13,7 +13,8 @@
         public UserStore()
         {
             _idCount = 1;
-            _userStore = new Dictionary<int, BaseUser>();        }
+            _userStore = new Dictionary<int, BaseUser>();        
+        }
 
         public bool AddUser(BaseUser user)
         {

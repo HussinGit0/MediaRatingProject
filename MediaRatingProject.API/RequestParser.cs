@@ -1,18 +1,13 @@
 ﻿namespace MediaRatingProject.API
 {
-    using MediaRatingProject.API.Controllers;
-    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
-    using MediaRatingProject.API.Services;
     using System.Net;
 
     public class RequestParser
     {
-        private UsersController _usersController;
 
-        public RequestParser(UsersController usersController)
+        public RequestParser()
         {
-            _usersController = usersController;
         }
 
         /// <summary>
