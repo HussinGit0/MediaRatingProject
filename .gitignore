@@ -1,0 +1,141 @@
+## Ignore Visual Studio temporary files, build results, and other generated files
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Visual Studio working folders
+.vs/
+.vscode/
+
+# Generated files
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.ipdb
+*.iobj
+*.res
+*.tlog
+*.cachefile
+*.dbmdl
+*.bak
+*.backup
+*.log
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+
+# .NET build artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# T4 generated code
+*.tt
+*.ttinclude
+*.Generated.cs
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Publish outputs
+*.Publish.xml
+publish/
+_PublishedWebsites/
+*.[Pp]ublish.xml
+*.pubxml
+*.pubxml.user
+PublishProfiles/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+packages/
+!packages/build/
+
+# Rider / JetBrains IDE
+.idea/
+*.sln.iml
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Entity Framework
+*.mdf
+*.ldf
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Azure
+.publishsettings
+*.azurePubxml
+*.azurePubxml.user
+
+# Logs
+*.log
+*.tlog
+*.err
+*.wrn
+
+# Coverage and test results
+TestResults/
+*.coverage
+*.coveragexml
+*.trx
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+*.swp
+*.swo
+*.tmp_proj
+
+# Backup and autosave files
+*.bak
+*.orig
+
+# Configuration transforms
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Test.json
+
+# Node / front-end related (if using Blazor, React, etc.)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# Tooling
+.DS_Store
+Thumbs.db
+
+# Local environment
+.env
+.env.*
