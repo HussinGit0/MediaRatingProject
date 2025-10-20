@@ -1,21 +1,19 @@
-﻿namespace API
+﻿namespace MediaRatingProject.API
 {
     using System.Net;
     using System.IO;
     using System.Text.Json;
-    using MediaRatingProject.Server.Requests;
-    using MediaRatingProject.DB.Users;
 
     /// <summary>
     /// A basic listener class that listens to HTTP requests and handles them.
     /// Contains only testing functionality at the moment.
     /// Based on https://learn.microsoft.com/en-us/dotnet/api/system.net.httplistener?view=net-9.0
     /// </summary>
-    internal class APIListener
+    public class EndPointsListner
     {
         private readonly HttpListener _listener;
-        private readonly RequestHandler _requestHandler;
-        private UserStore UserDB;
+        private readonly RequestParser _requestHandler;
+        //private UserStore UserDB;
 
         /// <summary>
         /// A listener 
@@ -23,7 +21,7 @@
         /// <param name="prefixes"></param>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public APIListener(string[] prefixes, RequestHandler requestHandler)
+        public EndPointsListner(string[] prefixes, RequestParser requestHandler)
         {
             if (!HttpListener.IsSupported)
             {

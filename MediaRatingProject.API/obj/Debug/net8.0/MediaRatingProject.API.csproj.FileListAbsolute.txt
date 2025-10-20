@@ -1,0 +1,12 @@
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.AssemblyInfoInputs.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.AssemblyInfo.cs
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.csproj.CoreCompileInputs.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.sourcelink.json
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\bin\Debug\net8.0\MediaRatingProject.API.deps.json
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\bin\Debug\net8.0\MediaRatingProject.API.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\bin\Debug\net8.0\MediaRatingProject.API.pdb
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\refint\MediaRatingProject.API.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.pdb
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\ref\MediaRatingProject.API.dll

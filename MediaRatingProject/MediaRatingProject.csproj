@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MediaRatingProject.API\MediaRatingProject.API.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,15 +1,15 @@
-﻿
-namespace API
+﻿namespace MediaRatingProject.API
 {
-    using MediaRatingProject.DB.Users;
+    //using MediaRatingProject.DB.Users;
     using System.Text.Json;
-    using API.Requests;
+    using MediaRatingProject.API.Requests;
 
     public class UsersHandler
     {
-        private readonly UserStore _userStore;
+        //private readonly UserStore _userStore;
 
-        public UsersHandler(UserStore userStore)
+        public UsersHandler() { }
+        /*public UsersHandler(UserStore userStore)
         {
             _userStore = userStore;
 
@@ -38,6 +38,6 @@ namespace API
         public void LoginUser(string body)
         {
             var loginRequest = JsonSerializer.Deserialize<LoginRequest>(body)!;
-        }
+        }*/
     }
 }

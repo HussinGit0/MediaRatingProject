@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MediaRatingProject\MediaRatingProject.csproj" />
+    <Folder Include="Requests\GET\" />
+    <Folder Include="Requests\DELETE\" />
+    <Folder Include="Requests\PUT\" />
   </ItemGroup>
 
 </Project>
