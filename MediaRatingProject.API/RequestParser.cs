@@ -1,5 +1,6 @@
 ﻿namespace MediaRatingProject.API
 {
+    using MediaRatingProject.API.Controllers;
     using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.API.Services;
@@ -7,16 +8,16 @@
 
     public class RequestParser
     {
-        private UsersHandler _usersHandler;
+        private UsersController _usersController;
 
-        public RequestParser(UsersHandler usersHandler)
+        public RequestParser(UsersController usersController)
         {
-            _usersHandler = usersHandler;
+            _usersController = usersController;
         }
 
         public ParsedRequestDTO ParseRequest(HttpListenerRequest request, string body)
         {
-            //HttpListenerRequest request = listner.GetContext().Request;
+            //HttpListenerRequest request = listener.GetContext().Request;
             ParsedRequestDTO parsedRequestDTO;
             switch (request.HttpMethod.ToUpper())
             {
@@ -106,7 +107,7 @@
         {
             ParsedRequestDTO requestDTO = new();
             requestDTO.Body = body;
-            requestDTO.HttpMethod = "POST";
+            requestDTO.HttpMethod = "GET";
             requestDTO.IsSuccessful = true; // Assume success until failure.
 
             Dictionary<string, string> parameters = new();
@@ -162,7 +163,7 @@
         {
             ParsedRequestDTO requestDTO = new();
             requestDTO.Body = body;
-            requestDTO.HttpMethod = "POST";
+            requestDTO.HttpMethod = "PUT";
             requestDTO.IsSuccessful = true; // Assume success until failure.
 
             Dictionary<string, string> parameters = new();
@@ -188,7 +189,6 @@
                 Console.WriteLine($"=============\nPUT request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
             }
 
-
             requestDTO.Parameters = parameters;
             return requestDTO;
         }
@@ -197,7 +197,7 @@
         {
             ParsedRequestDTO requestDTO = new();
             requestDTO.Body = body;
-            requestDTO.HttpMethod = "POST";
+            requestDTO.HttpMethod = "DELETE";
             requestDTO.IsSuccessful = true; // Assume success until failure.
 
             Dictionary<string, string> parameters = new();
@@ -222,7 +222,6 @@
                 requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nDELETE request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
             }
-
 
             requestDTO.Parameters = parameters;
             return requestDTO;
