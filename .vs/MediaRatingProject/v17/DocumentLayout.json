@@ -3,36 +3,56 @@
   "WorkspaceRootPath": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\api\\usershandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|solutionrelative:api\\usershandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\requestparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\requestparser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\api\\requesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|solutionrelative:api\\requesthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\endpointslistner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\endpointslistner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\server\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\server\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\endpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\endpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\api\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{092ADD66-54E1-462B-8B3F-C689AE898307}|API\\API.csproj|solutionrelative:api\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\routematcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\routematcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\db\\users\\baseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\db\\users\\baseuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\requests\\failedrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\requests\\failedrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\db\\users\\userstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\db\\users\\userstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\requests\\post\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\requests\\post\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\server\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\server\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\mediaratingproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{AB3AAFDC-3AE7-4299-B70F-279FA6B18C8F}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\mediaratingproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\server\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\server\\apilistener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\usershandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\usershandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\interfaces\\irequestvisitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\interfaces\\irequestvisitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\requests\\post\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\requests\\post\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject.api\\interfaces\\irequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{753BE940-788A-D0DD-CCC9-B0C243421B99}|MediaRatingProject.API\\MediaRatingProject.API.csproj|solutionrelative:mediaratingproject.api\\interfaces\\irequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|c:\\myfiles\\s\\school\\fhtechnikumwien\\swen\\repo\\mediaratingproject\\mediaratingproject\\server\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AD83174-DB64-C634-E1FE-AACB25871B32}|MediaRatingProject\\MediaRatingProject.csproj|solutionrelative:mediaratingproject\\server\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,47 +62,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "BaseUser.cs",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\DB\\Users\\BaseUser.cs",
-              "RelativeDocumentMoniker": "MediaRatingProject\\DB\\Users\\BaseUser.cs",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\DB\\Users\\BaseUser.cs",
-              "RelativeToolTip": "MediaRatingProject\\DB\\Users\\BaseUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwQAAAAAAAAAAAAAAA==",
+              "Title": "FailedRequest.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\FailedRequest.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Requests\\FailedRequest.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\FailedRequest.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Requests\\FailedRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwsAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:42:05.671Z"
+              "WhenOpened": "2025-10-19T20:21:39.222Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserStore.cs",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\DB\\Users\\UserStore.cs",
-              "RelativeDocumentMoniker": "MediaRatingProject\\DB\\Users\\UserStore.cs",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\DB\\Users\\UserStore.cs",
-              "RelativeToolTip": "MediaRatingProject\\DB\\Users\\UserStore.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "RouteMatcher.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\RouteMatcher.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\RouteMatcher.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\RouteMatcher.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\RouteMatcher.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAvwB8AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:41:01.122Z"
+              "WhenOpened": "2025-10-19T20:08:38.338Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
+              "Title": "IRequestVisitor.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Interfaces\\IRequestVisitor.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Interfaces\\IRequestVisitor.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Interfaces\\IRequestVisitor.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Interfaces\\IRequestVisitor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T19:10:04.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IRequest.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Interfaces\\IRequest.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Interfaces\\IRequest.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Interfaces\\IRequest.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Interfaces\\IRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T19:09:20.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "APIListener.cs",
               "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\Server\\APIListener.cs",
               "RelativeDocumentMoniker": "MediaRatingProject\\Server\\APIListener.cs",
               "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\Server\\APIListener.cs",
               "RelativeToolTip": "MediaRatingProject\\Server\\APIListener.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAgwCoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAvwCgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:40:55.691Z"
+              "WhenOpened": "2025-10-19T18:48:16.139Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "LoginRequest.cs",
               "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\Server\\Requests\\LoginRequest.cs",
               "RelativeDocumentMoniker": "MediaRatingProject\\Server\\Requests\\LoginRequest.cs",
@@ -90,56 +139,99 @@
               "RelativeToolTip": "MediaRatingProject\\Server\\Requests\\LoginRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:40:55.153Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersHandler.cs",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\UsersHandler.cs",
-              "RelativeDocumentMoniker": "API\\UsersHandler.cs",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\UsersHandler.cs",
-              "RelativeToolTip": "API\\UsersHandler.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAUwCcAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:40:37.908Z",
+              "WhenOpened": "2025-10-19T18:48:14.828Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MediaRatingProject.csproj",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\MediaRatingProject.csproj",
-              "RelativeDocumentMoniker": "MediaRatingProject\\MediaRatingProject.csproj",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\MediaRatingProject.csproj",
-              "RelativeToolTip": "MediaRatingProject\\MediaRatingProject.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-01T22:34:40.667Z"
+              "DocumentIndex": 5,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\POST\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Requests\\POST\\RegisterRequest.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\POST\\RegisterRequest.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Requests\\POST\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T18:46:29.309Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "APIListener.cs",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\APIListener.cs",
-              "RelativeDocumentMoniker": "API\\APIListener.cs",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\APIListener.cs",
-              "RelativeToolTip": "API\\APIListener.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAD4vz4AAAAoAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\POST\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Requests\\POST\\LoginRequest.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Requests\\POST\\LoginRequest.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Requests\\POST\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:32:56.186Z"
+              "WhenOpened": "2025-10-19T18:46:28.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RequestParser.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\RequestParser.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\RequestParser.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\RequestParser.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\RequestParser.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAEwDwAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T17:59:35.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Endpoints.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Endpoints.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\Endpoints.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\Endpoints.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\Endpoints.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T17:58:46.604Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "RequestHandler.cs",
-              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\RequestHandler.cs",
-              "RelativeDocumentMoniker": "API\\RequestHandler.cs",
-              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\API\\RequestHandler.cs",
-              "RelativeToolTip": "API\\RequestHandler.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowCQAAAAnAAAAAAAAAA==",
+              "Title": "EndPointsListner.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\EndPointsListner.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\EndPointsListner.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\EndPointsListner.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\EndPointsListner.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAkwD4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T22:32:52.34Z"
+              "WhenOpened": "2025-10-19T17:58:12.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UsersHandler.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\UsersHandler.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject.API\\UsersHandler.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject.API\\UsersHandler.cs",
+              "RelativeToolTip": "MediaRatingProject.API\\UsersHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T17:36:50.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\Program.cs",
+              "RelativeDocumentMoniker": "MediaRatingProject\\Program.cs",
+              "ToolTip": "C:\\MyFiles\\S\\School\\FHTechnikumWien\\SWEN\\Repo\\MediaRatingProject\\MediaRatingProject\\Program.cs",
+              "RelativeToolTip": "MediaRatingProject\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T17:36:08.819Z",
+              "EditorCaption": ""
             }
           ]
         }
