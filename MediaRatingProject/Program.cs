@@ -5,8 +5,12 @@
     using MediaRatingProject.API.Controllers;
     using MediaRatingProject.Data.Stores;
 
-    internal class Program
+    internal class Program    
     {
+        /// <summary>
+        /// Entry point of the application.
+        /// </summary>
+        /// <param name="args">Unused.</param>
         static void Main(string[] args)
         {
             string[] prefix = { "http://localhost:8080/" };

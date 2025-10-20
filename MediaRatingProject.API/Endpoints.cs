@@ -1,8 +1,12 @@
 ﻿namespace MediaRatingProject.API
 {
+    /// <summary>
+    /// A class containing all the paths for the API endpoints as specified in the project requirements.
+    /// These endpoints have been testing using the POSTMAN collection provided in the course in Moodle:
+    /// https://moodle.technikum-wien.at/pluginfile.php/2671725/mod_resource/content/1/MRP_Postman_Collection.json
+    /// </summary>
     public static class EndPoints
-    {
-        // POST
+    {        
         public const string USERS_REGISTER_REQUEST = "/api/users/register"; // Post
         public const string USERS_LOGIN_REQUEST = "/api/users/login"; // Post
         public const string USERS_PROFILE_REQUEST = "/api/users/{userId}/profile"; // Get Put

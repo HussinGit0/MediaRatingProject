@@ -19,6 +19,12 @@
             _audience = audience;
         }
 
+        /// <summary>
+        /// Generate a token based on username and expiration time.
+        /// </summary>
+        /// <param name="username">The username whose token is generated for.</param>
+        /// <param name="expireMinutes">Validity of the token.</param>
+        /// <returns>A generated token.</returns>
         public string GenerateToken(string username, int expireMinutes = 60)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -40,6 +46,12 @@
             return tokenHandler.WriteToken(token);
         }
 
+        /// <summary>
+        /// Validate the token and extract the username.
+        /// </summary>
+        /// <param name="token">The token to validate.</param>
+        /// <param name="username">The username is extracted and outputted.</param>
+        /// <returns>True if the token is valid, false otherwise.</returns>
         public bool ValidateToken(string token, out string username)
         {
             username = null;

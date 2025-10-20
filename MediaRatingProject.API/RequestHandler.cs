@@ -1,6 +1,5 @@
 ﻿using MediaRatingProject.API.Controllers;
 using MediaRatingProject.API.Requests;
-using System;
 
 namespace MediaRatingProject.API
 {
@@ -9,6 +8,11 @@ namespace MediaRatingProject.API
         private readonly UsersController _usersController;
         private readonly MediaController _mediaController;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestHandler"/> class.
+        /// </summary>
+        /// <param name="usersController">A class responsible for handling users.</param>
+        /// <param name="mediaController">A class responsible for handling media entries.</param>
         public RequestHandler(
             UsersController usersController,
             MediaController mediaController)
@@ -17,6 +21,11 @@ namespace MediaRatingProject.API
             _mediaController = mediaController;
         }
 
+        /// <summary>
+        /// Processes the incoming parsed request and routes it to the appropriate controller method.
+        /// </summary>
+        /// <param name="request">A parsed HTTP request.</param>
+        /// <returns>A response handler.</returns>
         public ResponseHandler HandleRequest(ParsedRequestDTO request)
         {
             if (!request.IsSuccessful)
@@ -46,6 +55,11 @@ namespace MediaRatingProject.API
             }
         }
 
+        /// <summary>
+        /// Handles POST requests.
+        /// </summary>
+        /// <param name="request">A parsed HTTP request.</param>
+        /// <returns>A response handler.</returns>
         private ResponseHandler HandlePOSTRequest(ParsedRequestDTO request)
         {            
             switch (request.Path)
@@ -58,7 +72,6 @@ namespace MediaRatingProject.API
                     return _usersController.Register(request);
                     
 
-                // ---- MEDIA ACTIONS ----
                 case EndPoints.MEDIA_REQUEST:
                     return _mediaController.CreateMedia(request);
                     
@@ -86,6 +99,11 @@ namespace MediaRatingProject.API
             }
         }
 
+        /// <summary>
+        /// Handles GET requests.
+        /// </summary>
+        /// <param name="request">A parsed HTTP request.</param>
+        /// <returns>A response handler.</returns>
         private ResponseHandler HandleGETRequest(ParsedRequestDTO request)
         {
             switch (request.Path)
@@ -125,6 +143,11 @@ namespace MediaRatingProject.API
             }
         }
 
+        /// <summary>
+        /// Handles PUT requests.
+        /// </summary>
+        /// <param name="request">A parsed HTTP request.</param>
+        /// <returns>A response handler.</returns>
         private ResponseHandler HandlePUTRequest(ParsedRequestDTO request)
         {
             switch (request.Path)
@@ -148,6 +171,11 @@ namespace MediaRatingProject.API
             }
         }
 
+        /// <summary>
+        /// Handles DELETE requests.
+        /// </summary>
+        /// <param name="request">A parsed HTTP request.</param>
+        /// <returns>A response handler.</returns>
         private ResponseHandler HandleDELETERequest(ParsedRequestDTO request)
         {           
             switch (request.Path)

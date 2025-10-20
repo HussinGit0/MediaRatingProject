@@ -15,10 +15,16 @@
             _usersController = usersController;
         }
 
+        /// <summary>
+        /// Parses an incoming HTTP request into a ParsedRequestDTO.
+        /// </summary>
+        /// <param name="request">The HTTP request.</param>
+        /// <param name="body">The body of the request as a string.</param>
+        /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         public ParsedRequestDTO ParseRequest(HttpListenerRequest request, string body)
         {
-            //HttpListenerRequest request = listener.GetContext().Request;
             ParsedRequestDTO parsedRequestDTO;
+
             switch (request.HttpMethod.ToUpper())
             {
                 case "GET":
@@ -42,6 +48,12 @@
             return parsedRequestDTO;
         }
 
+        /// <summary>
+        /// Parses POST requests only.
+        /// </summary>
+        /// <param name="request">The HTTP request.</param>
+        /// <param name="body">The body of the request as a string.</param>
+        /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         private ParsedRequestDTO ParsePOSTRequest(HttpListenerRequest request, string body)
         {
             ParsedRequestDTO requestDTO = new();
@@ -103,6 +115,12 @@
             return requestDTO;
         }
 
+        /// <summary>
+        /// Parses GET requests only.
+        /// </summary>
+        /// <param name="request">The HTTP request.</param>
+        /// <param name="body">The body of the request as a string.</param>
+        /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         private ParsedRequestDTO ParseGETRequest(HttpListenerRequest request, string body)
         {
             ParsedRequestDTO requestDTO = new();
@@ -159,6 +177,12 @@
             return requestDTO;
         }
 
+        /// <summary>
+        /// Parses PUT requests only.
+        /// </summary>
+        /// <param name="request">The HTTP request.</param>
+        /// <param name="body">The body of the request as a string.</param>
+        /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         private ParsedRequestDTO ParsePUTRequest(HttpListenerRequest request, string body)
         {
             ParsedRequestDTO requestDTO = new();
@@ -193,6 +217,12 @@
             return requestDTO;
         }
 
+        /// <summary>
+        /// Parses DELETE requests only.
+        /// </summary>
+        /// <param name="request">The HTTP request.</param>
+        /// <param name="body">The body of the request as a string.</param>
+        /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         private ParsedRequestDTO ParseDELETERequest(HttpListenerRequest request, string body)
         {
             ParsedRequestDTO requestDTO = new();

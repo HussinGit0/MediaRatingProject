@@ -2,6 +2,7 @@
 {
     using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
+    using MediaRatingProject.API.DTOs;
     using MediaRatingProject.Data.Stores;
     using MediaRatingProject.Data.Users;
     using System.Text.Json;
@@ -17,6 +18,11 @@
             _jwtService = jwtService;
         }
 
+        /// <summary>
+        /// Registers a user in the system if there are no duplicate.
+        /// </summary>
+        /// <param name="request">The registeration request.</param>
+        /// <returns>A HTTP response.</returns>
         public ResponseHandler Register(ParsedRequestDTO request)
         {
             try
@@ -47,7 +53,13 @@
             {
                 return ResponseHandler.BadRequest($"Error registering user: {ex.Message}");
             }
-        }     
+        }
+
+        /// <summary>
+        /// Logs in a user and returns a JWT token if successful.
+        /// </summary>
+        /// <param name="request">The log in request.</param>
+        /// <returns>A HTTP response.</returns>
         public ResponseHandler Login(ParsedRequestDTO request)
         {
             try
@@ -62,7 +74,7 @@
                 if (existingUser == null || existingUser.Password != userDto.Password)
                     return ResponseHandler.Unauthorized("Invalid username or password.");
 
-                // Generate JWT token
+                // Generate JWT token to return.
                 var token = _jwtService.GenerateToken(existingUser.Username);
 
                 return ResponseHandler.Ok("Login successful.", JsonSerializer.Serialize(new { token }));
@@ -75,12 +87,6 @@
             {
                 return ResponseHandler.BadRequest($"Error logging in: {ex.Message}");
             }
-        }
-
-        public class UserDTO
-        {
-            public string Username { get; set; }
-            public string Password { get; set; }
         }
     }
 }

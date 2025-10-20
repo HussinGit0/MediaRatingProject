@@ -1,6 +1,9 @@
 ﻿
 namespace MediaRatingProject.API
 {
+    /// <summary>
+    /// A class representing a response for HTTP requests.
+    /// </summary>
     public class ResponseHandler
     {
         public int StatusCode { get; set; }

@@ -1,8 +1,6 @@
 ﻿namespace MediaRatingProject.API.Controllers
 {
-    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
-    using MediaRatingProject.Data.Enums;
     using MediaRatingProject.Data.Media;
     using MediaRatingProject.Data.Stores;
     using System;
@@ -80,7 +78,6 @@
                 if (media == null)
                     return ResponseHandler.BadRequest($"Unknown mediaType '{mediaType}'.");
 
-                // Populate properties from JSON.
                 // This is done manually, and will be automated in the future.
                 media.Title = root.GetProperty("title").GetString() ?? "Untitled";
                 media.Description = root.GetProperty("description").GetString() ?? "";
