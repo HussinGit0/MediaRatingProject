@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MediaRatingProject.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+883c060f32b7c584abf7adfdf4ec0a0fba520d24")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c08d161bd516c638e80f22b8513f39606671a82")]
 [assembly: System.Reflection.AssemblyProductAttribute("MediaRatingProject.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MediaRatingProject.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,3 +10,7 @@ C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProj
 C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\refint\MediaRatingProject.API.dll
 C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.pdb
 C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\ref\MediaRatingProject.API.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRatingProject.API.csproj.AssemblyReference.cache
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\bin\Debug\net8.0\MediaRatingProject.Data.dll
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\bin\Debug\net8.0\MediaRatingProject.Data.pdb
+C:\MyFiles\S\School\FHTechnikumWien\SWEN\Repo\MediaRatingProject\MediaRatingProject.API\obj\Debug\net8.0\MediaRat.54EE65E0.Up2Date
