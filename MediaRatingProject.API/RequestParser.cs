@@ -1,11 +1,14 @@
 ﻿namespace MediaRatingProject.API
 {
+    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
     using System.Net;
 
-    public class RequestParser
+    /// <summary>
+    /// Class responsible for parsing incoming requests.
+    /// </summary>
+    public class RequestParser: IRequestParser
     {
-
         public RequestParser()
         {
         }

@@ -1,11 +1,14 @@
-﻿using MediaRatingProject.API.Controllers;
-using MediaRatingProject.API.Interfaces;
-using MediaRatingProject.API.Requests;
-using MediaRatingProject.API.Services;
-
-namespace MediaRatingProject.API
+﻿namespace MediaRatingProject.API
 {
-    public class RequestHandler
+    using MediaRatingProject.API.Controllers;
+    using MediaRatingProject.API.Interfaces;
+    using MediaRatingProject.API.Requests;
+    using MediaRatingProject.API.Services;
+
+    /// <summary>
+    /// Class responsible for handling and executing incoming requests.
+    /// </summary>
+    public class RequestHandler: IRequestHandler
     {
         private readonly UsersController _usersController;
         private readonly MediaController _mediaController;
@@ -219,6 +222,12 @@ namespace MediaRatingProject.API
             }
         }
 
+        /// <summary>
+        /// Authenticates the user's bearer token.
+        /// </summary>
+        /// <param name="request">The request containing the token.</param>
+        /// <param name="username">Outputted username of the requester.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         private bool Authenticate(ParsedRequestDTO request, out string username)
         {
             username = null;

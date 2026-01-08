@@ -1,6 +1,5 @@
 ﻿namespace MediaRatingProject.Data.Media
 {
-    using MediaRatingProject.Data.Enums;
     using MediaRatingProject.Data.Ratings;
 
     public class BaseMedia

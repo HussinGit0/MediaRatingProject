@@ -2,15 +2,16 @@
 {
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.Data.Stores;
+    using MediaRatingProject.Data.StoreInterfaces;
 
     /// <summary>
     /// Class responsible for communicating with the favorite store.
     /// </summary>
     public class FavoriteController
     {
-        private readonly FavoriteStore _favoriteStore;
+        private readonly IFavoriteStore _favoriteStore;
 
-        public FavoriteController(FavoriteStore store)
+        public FavoriteController(IFavoriteStore store)
         {
             _favoriteStore = store;
         }

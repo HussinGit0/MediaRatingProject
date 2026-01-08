@@ -2,6 +2,9 @@
 {
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// Static class to match requested routes with endpoint route templates and extract parameters.
+    /// </summary>
     public static class RouteMatcher
     {
         /// <summary>

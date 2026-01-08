@@ -1,6 +1,8 @@
 ﻿
 namespace MediaRatingProject.API
 {
+    using MediaRatingProject.API.Interfaces;
+
     /// <summary>
     /// A class representing a response for HTTP requests.
     /// </summary>

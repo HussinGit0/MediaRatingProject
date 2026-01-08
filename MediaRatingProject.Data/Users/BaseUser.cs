@@ -1,7 +1,5 @@
 ﻿namespace MediaRatingProject.Data.Users
 {
-    using MediaRatingProject.Data.Ratings;
-
     public abstract class BaseUser
     {
         public int Id { get; set; }

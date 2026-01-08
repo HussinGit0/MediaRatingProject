@@ -1,11 +1,12 @@
-﻿using MediaRatingProject.Data.Media;
-using MediaRatingProject.Data.Ratings;
-using MediaRatingProject.Data.Users;
-using Npgsql;
-
-namespace MediaRatingProject.Data.Stores
+﻿namespace MediaRatingProject.Data.Stores
 {
-    public class RatingStore
+    using MediaRatingProject.Data.Media;
+    using MediaRatingProject.Data.Ratings;
+    using MediaRatingProject.Data.StoreInterfaces;
+    using MediaRatingProject.Data.Users;
+    using Npgsql;
+
+    public class RatingStore: IRatingStore
     {
         private readonly string _connectionString;
 
@@ -13,10 +14,11 @@ namespace MediaRatingProject.Data.Stores
         {
             _connectionString = connectionString;
         }
-
         /// <summary>
         /// Gets all ratings created by a user.
         /// </summary>
+        /// <param name="userId">Users ID</param>
+        /// <returns>A list of ratings for the user's information.</returns>
         public List<Rating> GetRatingsByUser(int userId)
         {
             var ratings = new List<Rating>();
@@ -75,6 +77,12 @@ namespace MediaRatingProject.Data.Stores
 
             return ratings;
         }
+
+        /// <summary>
+        /// Creates a new rating in the database.
+        /// </summary>
+        /// <param name="rating">Rating info.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool CreateRating(Rating rating)
         {
             if (rating == null ||
@@ -114,6 +122,12 @@ namespace MediaRatingProject.Data.Stores
             }
         }
 
+
+        /// <summary>
+        /// Updates the rating of a user.
+        /// </summary>
+        /// <param name="updatedRating">The new rating information.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool UpdateRating(Rating updatedRating)
         {
             if (updatedRating == null ||
@@ -158,6 +172,9 @@ namespace MediaRatingProject.Data.Stores
         /// <summary>
         /// Likes a rating for a given user.
         /// </summary>
+        /// <param name="ratingId">The rating to like.</param>
+        /// <param name="userId">The liker's ID</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool LikeRating(int ratingId, int userId)
         {
             if (ratingId <= 0 || userId <= 0)
@@ -188,6 +205,12 @@ namespace MediaRatingProject.Data.Stores
             }
         }
 
+        /// <summary>
+        /// Approves comment of a media rating if the approver is the creator of the media.
+        /// </summary>
+        /// <param name="ratingId">Rating ID</param>
+        /// <param name="approverId">Media creator ID.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool ApproveRating(int ratingId, int approverId)
         {
             if (ratingId <= 0 || approverId <= 0)

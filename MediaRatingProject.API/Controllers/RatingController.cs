@@ -3,6 +3,7 @@
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.Data.Media;
     using MediaRatingProject.Data.Ratings;
+    using MediaRatingProject.Data.StoreInterfaces;
     using MediaRatingProject.Data.Stores;
     using MediaRatingProject.Data.Users;
     using System;
@@ -10,9 +11,9 @@
 
     public class RatingController
     {
-        private readonly RatingStore _ratingStore;
+        private readonly IRatingStore _ratingStore;
 
-        public RatingController(RatingStore ratingStore)
+        public RatingController(IRatingStore ratingStore)
         {
             _ratingStore = ratingStore;
         }

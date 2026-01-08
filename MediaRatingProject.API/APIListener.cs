@@ -3,6 +3,7 @@
     using System.Net;
     using System.IO;
     using System.Text.Json;
+    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
 
     /// <summary>
@@ -12,8 +13,8 @@
     public class APIListener
     {
         private readonly HttpListener _listener;
-        private readonly RequestParser _requestParser;
-        private readonly RequestHandler _requestHandler;
+        private readonly IRequestParser _requestParser;
+        private readonly IRequestHandler _requestHandler;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="APIListener"/> class.
@@ -23,7 +24,7 @@
         /// <param name="handler">A handler which handles requests and executes them.</param>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public APIListener(string[] prefixes, RequestParser parser, RequestHandler handler)
+        public APIListener(string[] prefixes, IRequestParser parser, IRequestHandler handler)
         {
             if (!HttpListener.IsSupported)
             {

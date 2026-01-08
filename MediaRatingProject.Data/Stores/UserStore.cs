@@ -1,10 +1,11 @@
 ﻿namespace MediaRatingProject.Data.Stores
 {
     using MediaRatingProject.Data.Ratings;
+    using MediaRatingProject.Data.StoreInterfaces;
     using MediaRatingProject.Data.Users;
     using Npgsql;
 
-    public class UserStore
+    public class UserStore: IUserStore
     {
         private readonly string _connectionString;
 
@@ -13,6 +14,11 @@
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Creates a new user in the database.
+        /// </summary>
+        /// <param name="user">User information</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool CreateUser(BaseUser user)
         {
             using (var conn = new NpgsqlConnection(_connectionString))

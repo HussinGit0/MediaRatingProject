@@ -2,14 +2,18 @@
 {
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.Data.Media;
+    using MediaRatingProject.Data.StoreInterfaces;
     using MediaRatingProject.Data.Stores;
     using System;
     using System.Text.Json;
 
+    /// <summary>
+    /// Class responsible for communicating with the mediaStore
+    /// </summary>
     public class MediaController
     {
-        private readonly MediaStore _mediaStore;
-        public MediaController(MediaStore mediaStore)
+        private readonly IMediaStore _mediaStore;
+        public MediaController(IMediaStore mediaStore)
         {
             _mediaStore = mediaStore;
         }

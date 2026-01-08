@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRatingProject.API", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRatingProject.Data", "MediaRatingProject.Data\MediaRatingProject.Data.csproj", "{53DF2DF1-D1AD-4C1C-95FD-0A503C62BBAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRatingProject.Tests", "MediaRatingProject.Tests\MediaRatingProject.Tests.csproj", "{30DB0CE6-3F41-45C3-A601-9CDC4E10942B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{53DF2DF1-D1AD-4C1C-95FD-0A503C62BBAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DF2DF1-D1AD-4C1C-95FD-0A503C62BBAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DF2DF1-D1AD-4C1C-95FD-0A503C62BBAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DB0CE6-3F41-45C3-A601-9CDC4E10942B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DB0CE6-3F41-45C3-A601-9CDC4E10942B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DB0CE6-3F41-45C3-A601-9CDC4E10942B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DB0CE6-3F41-45C3-A601-9CDC4E10942B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

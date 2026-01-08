@@ -1,15 +1,14 @@
-﻿using MediaRatingProject.Data.Media;
-using MediaRatingProject.Data.Ratings;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MediaRatingProject.Data.Stores
+{
+    using MediaRatingProject.Data.Media;
+    using MediaRatingProject.Data.Ratings;
+    using MediaRatingProject.Data.StoreInterfaces;
+    using Npgsql;
 
-namespace MediaRatingProject.Data.Stores
-{    
-    public class FavoriteStore
+    /// <summary>
+    /// Class responsible for managing favorites in the database.
+    /// </summary>
+    public class FavoriteStore: IFavoriteStore
     {
         private readonly string _connectionString;
 
@@ -18,6 +17,11 @@ namespace MediaRatingProject.Data.Stores
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Gets the favorites of a user by its id.
+        /// </summary>
+        /// <param name="userId">The requester's ID.</param>
+        /// <returns>A list of media which is favorited by the requester.</returns>
         public List<BaseMedia> GetFavoritesByUserID(int? userId)
         {
             var favorites = new List<BaseMedia>();

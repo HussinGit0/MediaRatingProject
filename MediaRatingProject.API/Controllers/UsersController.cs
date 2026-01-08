@@ -3,18 +3,18 @@
     using MediaRatingProject.API.DTOs;
     using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
-    using MediaRatingProject.Data.Ratings;
     using MediaRatingProject.Data.Stores;
+    using MediaRatingProject.Data.StoreInterfaces;
     using MediaRatingProject.Data.Users;
     using Npgsql;
     using System.Text.Json;
 
     public class UsersController
     {
-        private UserStore _userStore;
+        private IUserStore _userStore;
         public readonly ITokenService _tokenService;
 
-        public UsersController(UserStore store, ITokenService jwtService)
+        public UsersController(IUserStore store, ITokenService jwtService)
         {
             _userStore = store;
             _tokenService = jwtService;

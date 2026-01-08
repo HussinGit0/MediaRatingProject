@@ -1,16 +1,15 @@
-﻿using MediaRatingProject.Data.Media;
-using MediaRatingProject.Data.Ratings;
-using MediaRatingProject.Data.Users;
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MediaRatingProject.Data.Stores
+﻿namespace MediaRatingProject.Data.Stores
 {
-    public class MediaStore
+    using MediaRatingProject.Data.Media;
+    using MediaRatingProject.Data.Ratings;
+    using MediaRatingProject.Data.StoreInterfaces;
+    using MediaRatingProject.Data.Users;
+    using Npgsql;
+
+    /// <summary>
+    /// Class responsible for managing media data in the database.
+    /// </summary>
+    public class MediaStore: IMediaStore
     {
         private readonly string _connectionString;
 
@@ -19,6 +18,11 @@ namespace MediaRatingProject.Data.Stores
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Creates a new media entry.
+        /// </summary>
+        /// <param name="media">Media data.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool CreateMedia(BaseMedia media)
         {
             if (media == null || string.IsNullOrWhiteSpace(media.Title) || string.IsNullOrWhiteSpace(media.MediaType))
@@ -57,6 +61,11 @@ namespace MediaRatingProject.Data.Stores
 
         }
 
+        /// <summary>
+        /// Gets a media by its ID, including ratings and likes.
+        /// </summary>
+        /// <param name="id">Media id</param>
+        /// <returns>Class representing media containing its information.</returns>
         public BaseMedia GetMediaById(int id)
         {
             using var conn = new NpgsqlConnection(_connectionString);
@@ -175,7 +184,11 @@ namespace MediaRatingProject.Data.Stores
             return media;
         }
 
-
+        /// <summary>
+        /// Deletes media.
+        /// </summary>
+        /// <param name="id">Media id to delete.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool DeleteMedia(int id)
         {
             if (id <= 0)
@@ -205,6 +218,12 @@ namespace MediaRatingProject.Data.Stores
             }
         }
 
+        /// <summary>
+        /// Updates media information,
+        /// </summary>
+        /// <param name="updatedMedia">Updated media information.</param>
+        /// <param name="id">ID of media to update.</param>
+        /// <returns>Boolean indicating whether the operation is successful.</returns>
         public bool UpdateMedia(BaseMedia updatedMedia, int id)
         {
             if (updatedMedia == null || string.IsNullOrWhiteSpace(updatedMedia.Title) || string.IsNullOrWhiteSpace(updatedMedia.MediaType))
@@ -247,6 +266,10 @@ namespace MediaRatingProject.Data.Stores
             }
         }
 
+        /// <summary>
+        /// Gets a list of all media sorted by average rating..
+        /// </summary>
+        /// <returns>List of sorted media entries.</returns>
         public List<MediaSummaryDTO> GetLeaderboard()
         {
             var leaderboard = new List<MediaSummaryDTO>();
@@ -287,6 +310,18 @@ namespace MediaRatingProject.Data.Stores
             return leaderboard;
         }
 
+        /// <summary>
+        /// Searches media based on different filters.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="genres"></param>
+        /// <param name="mediaType"></param>
+        /// <param name="releaseYear"></param>
+        /// <param name="ageRestriction"></param>
+        /// <param name="minRating"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="ascending"></param>
+        /// <returns>List of media results.</returns>
         public List<MediaSummaryDTO> SearchMedia(string? title = null,
                                                  string[]? genres = null,
                                                  string? mediaType = null,
