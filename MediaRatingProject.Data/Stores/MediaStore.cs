@@ -22,7 +22,7 @@ namespace MediaRatingProject.Data.Stores
             _mediaStore = new Dictionary<int, BaseMedia>();
         }
 
-        public bool AddMedia(BaseMedia media)
+        public bool CreateMedia(BaseMedia media)
         {
             if (_mediaStore.Values.Any(m => m.Title == media.Title))
             {

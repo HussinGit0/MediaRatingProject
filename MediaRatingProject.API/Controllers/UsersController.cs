@@ -10,12 +10,12 @@
     public class UsersController
     {
         private UserStore _userStore;
-        private readonly ITokenService _jwtService;
+        public readonly ITokenService _tokenService;
 
         public UsersController(UserStore store, ITokenService jwtService)
         {
             _userStore = store;
-            _jwtService = jwtService;
+            _tokenService = jwtService;
         }
 
         /// <summary>
@@ -34,12 +34,12 @@
                     return ResponseHandler.BadRequest("Invalid username or password.");
 
                 // Check if user already exists
-                if (_userStore.GetUserByUsername(userDto.Username) != null)
-                    return ResponseHandler.BadRequest("User with the same name already exists!");
+                //if (_userStore.GetUserByUsername(userDto.Username) != null)
+                //    return ResponseHandler.BadRequest("User with the same name already exists!");
 
                 // Create new user
                 var newUser = new User(userDto.Username, userDto.Password);
-                bool success = _userStore.AddUser(newUser);
+                bool success = _userStore.CreateUser(newUser);
                 if (!success)
                     return ResponseHandler.BadRequest("Failed to register user.");
 
@@ -75,9 +75,9 @@
                     return ResponseHandler.Unauthorized("Invalid username or password.");
 
                 // Generate JWT token to return.
-                var token = _jwtService.GenerateToken(existingUser.Username);
+                var token =_tokenService.GenerateToken(existingUser.Username);
 
-                return ResponseHandler.Ok("Login successful.", JsonSerializer.Serialize(new { token }));
+                return ResponseHandler.Ok("Login successful.", new { token });
             }
             catch (JsonException ex)
             {
@@ -86,6 +86,34 @@
             catch (Exception ex)
             {
                 return ResponseHandler.BadRequest($"Error logging in: {ex.Message}");
+            }
+        }
+
+        public ResponseHandler GetUserByID(ParsedRequestDTO request)
+        {
+            try
+            {
+                // Validate and parse user ID from parameters
+                if (!request.Parameters.TryGetValue("userId", out var userIdStr) || !int.TryParse(userIdStr, out int userId))
+                    return ResponseHandler.BadRequest("Missing or invalid user ID.");
+
+                var user = _userStore.GetUserById(userId);
+                if (user == null)
+                    return ResponseHandler.NotFound("User not found.");
+
+                var responseBody = new
+                {
+                    user.Id,
+                    user.Username,
+                    user.RatedMediaCount,
+                    user.FavoriteMediaCount
+                };
+
+                return ResponseHandler.Ok("User fetched successfully.", responseBody);
+            }
+            catch (Exception ex)
+            {
+                return ResponseHandler.BadRequest($"Error fetching user: {ex.Message}");
             }
         }
     }

@@ -8,9 +8,9 @@ namespace MediaRatingProject.API
     {
         public int StatusCode { get; set; }
         public string? Message { get; set; }
-        public string? Body { get; set; }
+        public object? Body { get; set; }
 
-        public static ResponseHandler Ok(string message, string? body = null)
+        public static ResponseHandler Ok(string message, object? body = null)
             => new ResponseHandler { StatusCode = 200, Message = message, Body = body };
 
         public static ResponseHandler Unauthorized(string message)

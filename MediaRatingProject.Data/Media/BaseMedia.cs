@@ -14,7 +14,8 @@
         public List<Rating> Ratings { get; set; }
         public List<Favorite> FavoritedBy { get; set; }
         public float AverageRating { get; set; }
-
+        public string UserCreator { get; set; } 
+        public string MediaType { get; set; }
         public BaseMedia() { }
 
         public BaseMedia(int id,

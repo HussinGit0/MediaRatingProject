@@ -7,8 +7,10 @@
         public Dictionary<string, string> Parameters { get; set; }
         public string Path { get; set; }
         public string Body { get; set; }
-        public string Token { get; set; }  
+        public string Token { get; set; }
 
+        // Username is extracted from the token. Not part of the request.
+        public string UserName { get; set; }
         public ParsedRequestDTO() { }
     }
 }

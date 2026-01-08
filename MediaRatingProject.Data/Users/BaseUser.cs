@@ -7,8 +7,8 @@
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public List<Rating> RatedMedia { get; set; }
-        public List<Favorite> FavoriteMedia { get; set; }
+        public int RatedMediaCount { get; set; }
+        public int FavoriteMediaCount { get; set; }
 
         public BaseUser() { }
 

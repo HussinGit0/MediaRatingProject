@@ -11,6 +11,6 @@
         public int Score { get; set; }
         public string? Comment { get; set; }
 
-        public Dictionary<BaseUser, bool> Likes { get; set; } // True = Like, False = Dislike
+        public List<BaseUser> Likes { get; set; } // Users who liked/disliked the review
     }
 }

@@ -1,5 +1,7 @@
 ﻿using MediaRatingProject.API.Controllers;
+using MediaRatingProject.API.Interfaces;
 using MediaRatingProject.API.Requests;
+using MediaRatingProject.API.Services;
 
 namespace MediaRatingProject.API
 {
@@ -7,6 +9,7 @@ namespace MediaRatingProject.API
     {
         private readonly UsersController _usersController;
         private readonly MediaController _mediaController;
+        private readonly ITokenService _tokenService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestHandler"/> class.
@@ -15,10 +18,12 @@ namespace MediaRatingProject.API
         /// <param name="mediaController">A class responsible for handling media entries.</param>
         public RequestHandler(
             UsersController usersController,
-            MediaController mediaController)
+            MediaController mediaController,
+            ITokenService tokenService)
         {
             _usersController = usersController;
             _mediaController = mediaController;
+            _tokenService = tokenService;
         }
 
         /// <summary>
@@ -33,6 +38,11 @@ namespace MediaRatingProject.API
                 Console.WriteLine("Invalid request, cannot handle.");
                 return ResponseHandler.BadRequest("Bad request! Could not parse.");
             }
+
+            if (!Authenticate(request, out string username))
+                return ResponseHandler.Unauthorized("Unauthorized or missing token.");
+
+            request.UserName = username; // This saves the trouble of parsing the token again in each controller.
 
             switch (request.HttpMethod)
             {
@@ -61,10 +71,11 @@ namespace MediaRatingProject.API
         /// <param name="request">A parsed HTTP request.</param>
         /// <returns>A response handler.</returns>
         private ResponseHandler HandlePOSTRequest(ParsedRequestDTO request)
-        {            
+        {
+            string username; 
             switch (request.Path)
             {
-                case EndPoints.USERS_LOGIN_REQUEST:                    
+                case EndPoints.USERS_LOGIN_REQUEST:                                        
                     return _usersController.Login(request);
                     
 
@@ -109,8 +120,9 @@ namespace MediaRatingProject.API
             switch (request.Path)
             {
                 case EndPoints.USERS_PROFILE_REQUEST:
-                    return ResponseHandler.Ok("Get user profile endpoint hit.");
-                    
+                    return _usersController.GetUserByID(request);
+                //ResponseHandler.Ok("Get user profile endpoint hit.");
+
 
                 case EndPoints.USERS_RATINGS_REQUEST:
                     return ResponseHandler.Ok("Get user ratings endpoint hit.");
@@ -197,6 +209,26 @@ namespace MediaRatingProject.API
                     return ResponseHandler.BadRequest("Unknown DELETE request path.");
                     
             }
+        }
+
+        private bool Authenticate(ParsedRequestDTO request, out string username)
+        {
+            username = null;
+
+            // Allow public endpoints
+            if (request.Path == EndPoints.USERS_LOGIN_REQUEST ||
+                request.Path == EndPoints.USERS_REGISTER_REQUEST)
+                return true;
+
+            // Public media GETs
+            if (request.HttpMethod == "GET" &&
+                    (request.Path == EndPoints.MEDIA_REQUEST ||
+                     request.Path == EndPoints.MEDIA_ID_REQUEST ||
+                     request.Path == EndPoints.LEADERBOARD_REQUEST))
+                return true;
+
+
+            return _tokenService.ValidateToken(request.Token, out username);
         }
     }
 }

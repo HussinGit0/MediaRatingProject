@@ -4,6 +4,7 @@
     using MediaRatingProject.API.Services;
     using MediaRatingProject.API.Controllers;
     using MediaRatingProject.Data.Stores;
+    using MediaRatingProject.Data.Ratings;
 
     internal class Program    
     {
@@ -20,10 +21,10 @@
             var jwtService = new JwtService(secret);
 
             // Manual set up of the project with dependancy injection.
-            var userController = new UsersController(new UserStore(), jwtService);
-            var mediaController = new MediaController(new MediaStore());            
+            var userController = new UsersController(new UserStore(), new FavoriteStore(), jwtService);
+            var mediaController = new MediaController(new MediaStore(), new RatingStore());            
             var requestParser = new RequestParser();
-            var requestHandler = new RequestHandler(userController, mediaController);  
+            var requestHandler = new RequestHandler(userController, mediaController, jwtService);  
 
             APIListener listener = new(prefix, requestParser, requestHandler);
             listener.Start();

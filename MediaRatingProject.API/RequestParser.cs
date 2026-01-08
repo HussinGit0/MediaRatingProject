@@ -18,7 +18,8 @@
         /// <returns>A parsed request <see cref="ParsedRequestDTO"/></returns>
         public ParsedRequestDTO ParseRequest(HttpListenerRequest request, string body)
         {
-            ParsedRequestDTO parsedRequestDTO;
+            ParsedRequestDTO parsedRequestDTO = new();
+
 
             switch (request.HttpMethod.ToUpper())
             {
@@ -38,6 +39,15 @@
                     parsedRequestDTO = new() { IsSuccessful = false };
                     Console.WriteLine($"Unsupported HTTP method: {request.HttpMethod}");
                     break;
+            }
+
+            string token = null;
+
+            var authHeader = request.Headers["Authorization"];
+            if (!string.IsNullOrWhiteSpace(authHeader) &&
+                authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                parsedRequestDTO.Token = authHeader.Substring("Bearer ".Length).Trim();
             }
 
             return parsedRequestDTO;
