@@ -11,6 +11,7 @@
 
         // Username is extracted from the token. Not part of the request.
         public string UserName { get; set; }
+        public int? UserID { get; set; }
         public ParsedRequestDTO() { }
     }
 }

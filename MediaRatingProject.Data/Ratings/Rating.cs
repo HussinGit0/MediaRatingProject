@@ -11,6 +11,7 @@
         public int Score { get; set; }
         public string? Comment { get; set; }
 
+        public int LikeCount { get; set; }
         public List<BaseUser> Likes { get; set; } // Users who liked/disliked the review
     }
 }

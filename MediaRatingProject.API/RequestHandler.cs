@@ -9,6 +9,7 @@ namespace MediaRatingProject.API
     {
         private readonly UsersController _usersController;
         private readonly MediaController _mediaController;
+        private readonly FavoriteController _favoriteController;
         private readonly ITokenService _tokenService;
 
         /// <summary>
@@ -19,10 +20,12 @@ namespace MediaRatingProject.API
         public RequestHandler(
             UsersController usersController,
             MediaController mediaController,
+            FavoriteController favoriteController,
             ITokenService tokenService)
         {
             _usersController = usersController;
             _mediaController = mediaController;
+            _favoriteController = favoriteController;
             _tokenService = tokenService;
         }
 
@@ -43,6 +46,8 @@ namespace MediaRatingProject.API
                 return ResponseHandler.Unauthorized("Unauthorized or missing token.");
 
             request.UserName = username; // This saves the trouble of parsing the token again in each controller.
+
+            request.UserID = _usersController.GetUserIdByUsername(request); // Preload user data for controllers that might need it.
 
             switch (request.HttpMethod)
             {
@@ -92,8 +97,8 @@ namespace MediaRatingProject.API
                     
 
                 case EndPoints.MEDIA_FAVORITE_REQUEST:
-                    return ResponseHandler.Ok("Favorite media endpoint hit.");
-                    
+                    return _favoriteController.MarkFavorite(request);
+
 
                 case EndPoints.MEDIA_LIKE_REQUEST:
                     return ResponseHandler.Ok("Like rating endpoint hit.");
@@ -197,8 +202,8 @@ namespace MediaRatingProject.API
                     
 
                 case EndPoints.MEDIA_FAVORITE_REQUEST: 
-                    return ResponseHandler.Ok("Unfavorite media endpoint hit.");
-                    
+                    return _favoriteController.UnmarkFavorite(request);
+
 
                 case EndPoints.RATINGS_ID_REQUEST:
                     return ResponseHandler.Ok("Delete rating endpoint hit.");   

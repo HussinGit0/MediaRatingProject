@@ -3,17 +3,18 @@
     using MediaRatingProject.Data.Enums;
     using MediaRatingProject.Data.Ratings;
 
-    public abstract class BaseMedia
+    public class BaseMedia
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; } 
-        public string[] Genres { get; set; }
-        public int ReleaseYear { get; set; }
-        public int AgeRestriction { get; set; }
+        public List<string> Genres { get; set; }
+        public int? ReleaseYear { get; set; }
+        public int? AgeRestriction { get; set; }
         public List<Rating> Ratings { get; set; }
         public List<Favorite> FavoritedBy { get; set; }
         public float AverageRating { get; set; }
+        public int? UserId { get; set; } 
         public string UserCreator { get; set; } 
         public string MediaType { get; set; }
         public BaseMedia() { }
@@ -21,7 +22,7 @@
         public BaseMedia(int id,
                           string title,
                           string description,
-                          string[] genres,
+                          List<string> genres,
                           int year,
                           int ageRestriction)
         {

@@ -9,11 +9,11 @@
     public class MediaController
     {
         private readonly MediaStore _mediaStore;
-        private readonly RatingStore ratingStore;
+        private readonly RatingStore _ratingStore;
         public MediaController(MediaStore mediaStore, RatingStore ratingStore)
         {
             _mediaStore = mediaStore;
-            this.ratingStore = ratingStore;
+            _ratingStore = ratingStore;
         }
 
         public ResponseHandler GetAllMedia()
@@ -43,8 +43,7 @@
                 if (media == null)
                     return ResponseHandler.NotFound($"Media with '{id}' not found.");
 
-                var json = JsonSerializer.Serialize(media);
-                return ResponseHandler.Ok("Media fetched successfully.", json);
+                return ResponseHandler.Ok("Media fetched successfully.", media);
             }
             catch (Exception ex)
             {
@@ -82,7 +81,7 @@
                 // Populating the data fields.
                 media.Title = root.GetProperty("title").GetString() ?? "Untitled";
                 media.Description = root.GetProperty("description").GetString() ?? "";
-                media.Genres = root.GetProperty("genres").EnumerateArray().Select(g => g.GetString() ?? "").ToArray();               
+                media.Genres = root.GetProperty("genres").EnumerateArray().Select(g => g.GetString() ?? "").ToList();               
                 
                 if (!root.TryGetProperty("releaseYear", out var yearPropety) || !yearPropety.TryGetInt32(out int year))
                     return ResponseHandler.BadRequest("Invalid or missing 'releaseYear' field.");
@@ -93,6 +92,7 @@
                 media.AgeRestriction = age;
 
                 media.UserCreator = request.UserName;
+                media.UserId = request.UserID;
                 media.MediaType = mediaType;
 
                 // Add to store
@@ -126,7 +126,7 @@
             if (existingMedia == null)
                 return ResponseHandler.NotFound($"Media with ID {mediaId} not found.");
 
-            if (existingMedia.UserCreator != request.UserName)
+            if (existingMedia.UserId != request.UserID)
                 return ResponseHandler.Unauthorized("You are unauthorized to update this media.");
 
             try
@@ -163,12 +163,13 @@
                 updatedMedia.AverageRating = existingMedia.AverageRating;   
                 updatedMedia.UserCreator = existingMedia.UserCreator;
                 updatedMedia.MediaType = mediaType;
+                updatedMedia.UserId = existingMedia.UserId;
+                updatedMedia.UserCreator = existingMedia.UserCreator;
 
                 // Populate properties from JSON.
                 updatedMedia.Title = root.GetProperty("title").GetString() ?? existingMedia.Title;
                 updatedMedia.Description = root.GetProperty("description").GetString() ?? existingMedia.Description;
-                updatedMedia.Genres = root.GetProperty("genres").EnumerateArray()
-                    .Select(g => g.GetString() ?? "").ToArray();
+                updatedMedia.Genres = root.GetProperty("genres").EnumerateArray().Select(g => g.GetString() ?? "").ToList();
 
                 if (!root.TryGetProperty("releaseYear", out var yearProp) || !yearProp.TryGetInt32(out int year))
                     return ResponseHandler.BadRequest("Invalid or missing 'releaseYear' field.");
@@ -183,7 +184,7 @@
                     return ResponseHandler.BadRequest("Failed to update media.");
                 }
 
-                return ResponseHandler.Ok("Media updated successfully.", JsonSerializer.Serialize(updatedMedia));
+                return ResponseHandler.Ok("Media updated successfully.", updatedMedia);
             }
             catch (JsonException ex)
             {
@@ -203,14 +204,14 @@
             if (!int.TryParse(idString, out var mediaId))
                 return ResponseHandler.BadRequest("Invalid mediaId parameter.");
 
-            var media = _mediaStore.GetMediaById(mediaId);
-            if (media == null)
+            var existingMedia = _mediaStore.GetMediaById(mediaId);
+            if (existingMedia == null)
                 return ResponseHandler.NotFound($"Media with '{mediaId}' not found.");
 
-            if (media.UserCreator != request.UserName)  
-                return ResponseHandler.Unauthorized("You are unauthorized to delete this media.");
+            if (existingMedia.UserId != request.UserID)
+                return ResponseHandler.Unauthorized("You are unauthorized to update this media.");
 
-            if (!_mediaStore.RemoveMedia(mediaId))
+            if (!_mediaStore.DeleteMedia(mediaId))
             {
                 return ResponseHandler.NotFound($"Media with ID {mediaId} not found.");
             }

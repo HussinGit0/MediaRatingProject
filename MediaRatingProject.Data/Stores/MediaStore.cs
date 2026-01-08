@@ -1,5 +1,7 @@
 ﻿using MediaRatingProject.Data.Media;
+using MediaRatingProject.Data.Ratings;
 using MediaRatingProject.Data.Users;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,59 +12,225 @@ namespace MediaRatingProject.Data.Stores
 {
     public class MediaStore
     {
-        /// <summary>
-        /// ID counter to assign unique IDs to each media added. It never goes down, even if media is removed.
-        /// </summary>
-        private int _idCount;
-        private Dictionary<int, BaseMedia> _mediaStore;
+        private readonly string _connectionString;
 
-        public MediaStore()
+        public MediaStore(string connectionString)
         {
-            _idCount = 1;
-            _mediaStore = new Dictionary<int, BaseMedia>();
+            _connectionString = connectionString;
         }
 
         public bool CreateMedia(BaseMedia media)
         {
-            if (_mediaStore.Values.Any(m => m.Title == media.Title))
+            if (media == null || string.IsNullOrWhiteSpace(media.Title) || string.IsNullOrWhiteSpace(media.MediaType))
+                return false;
+
+            try
             {
-                Console.WriteLine("Media of the same title already exists.");
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                const string sql = @"
+                    INSERT INTO media (title, description, media_type, release_year, age_restriction, genres, creator_id)
+                    VALUES (@title, @description, @mediaType, @releaseYear, @ageRestriction, @genres, @creatorId)
+                    RETURNING id;
+                 ";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("title", media.Title);
+                cmd.Parameters.AddWithValue("description", (object)media.Description ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("mediaType", media.MediaType);
+                cmd.Parameters.AddWithValue("releaseYear", media.ReleaseYear.HasValue ? (object)media.ReleaseYear.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("ageRestriction", media.AgeRestriction.HasValue ? (object)media.AgeRestriction.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("genres", media.Genres != null ? media.Genres.ToArray() : new string[] { });
+                cmd.Parameters.AddWithValue("creatorId", media.UserId);
+
+                // Execute the insert and get the generated ID
+                media.Id = (int)cmd.ExecuteScalar();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating media: {ex.Message}");
                 return false;
             }
 
-            media.Id = _idCount;            
-            _mediaStore.Add(_idCount, media);
-            _idCount++;
-
-            return true;
         }
 
         public BaseMedia GetMediaById(int id)
         {
-            _mediaStore.TryGetValue(id, out var media);
+            using var conn = new NpgsqlConnection(_connectionString);
+            conn.Open();
+
+            // First, fetch the main media info
+            const string mediaSql = @"
+                SELECT id, title, description, media_type, release_year, age_restriction, genres, creator_id
+                FROM media
+                WHERE id = @id;
+                ";
+
+            BaseMedia media;
+
+            using (var cmd = new NpgsqlCommand(mediaSql, conn))
+            {
+                cmd.Parameters.AddWithValue("id", id);
+
+                using var reader = cmd.ExecuteReader();
+                if (!reader.Read()) return null;
+
+                media = new BaseMedia
+                {
+                    Id = reader.GetInt32(0),
+                    Title = reader.GetString(1),
+                    Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                    MediaType = reader.GetString(3),
+                    ReleaseYear = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                    AgeRestriction = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5),
+                    Genres = reader.IsDBNull(6) ? new List<string>() : reader.GetFieldValue<string[]>(6).ToList(),
+                    UserId = reader.GetInt32(7),
+                    Ratings = new List<Rating>()
+                };
+            }
+
+            // Fetch ratings for the media
+            const string ratingsSql = @"
+                SELECT 
+                r.id, r.user_id, u.username, r.score, r.comment, r.approved
+                FROM ratings r
+                JOIN users u ON r.user_id = u.id
+                WHERE r.media_id = @mediaId;
+                ";
+
+            using (var cmd = new NpgsqlCommand(ratingsSql, conn))
+            {
+                cmd.Parameters.AddWithValue("mediaId", id);
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var rating = new Rating
+                    {
+                        Id = reader.GetInt32(0),
+                        User = new User
+                        {
+                            Id = reader.GetInt32(1),
+                            Username = reader.GetString(2)
+                        },
+                        Score = reader.GetInt32(3),
+                        Comment = reader.IsDBNull(4) ? null : reader.GetString(4),
+                        Approved = reader.GetBoolean(5),
+                        Likes = new List<BaseUser>()
+                    };
+
+                    media.Ratings.Add(rating);
+                }
+            }
+
+            // Fetch likes for each rating
+            if (media.Ratings.Any())
+            {
+                const string likesCountSql = @"
+                    SELECT rating_id, COUNT(*) AS like_count
+                    FROM rating_likes
+                    WHERE rating_id = ANY(@ratingIds)
+                    GROUP BY rating_id;
+                    ";
+
+                using var cmd = new NpgsqlCommand(likesCountSql, conn);
+                cmd.Parameters.AddWithValue("ratingIds", media.Ratings.Select(r => r.Id).ToArray());
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int ratingId = reader.GetInt32(0);
+                    int likeCount = reader.GetInt32(1);
+
+                    var rating = media.Ratings.FirstOrDefault(r => r.Id == ratingId);
+                    if (rating != null)
+                    {
+                        rating.LikeCount = likeCount; // Add a property in Rating class for this
+                    }
+                }
+            }
+
             return media;
         }
 
 
-        public bool RemoveMedia(int mediaId)
-        {           
-            return _mediaStore.Remove(mediaId);
+        public bool DeleteMedia(int id)
+        {
+            if (id <= 0)
+                return false;
+
+            try
+            {
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                const string sql = @"
+                    DELETE FROM media
+                    WHERE id = @id;
+                    ";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("id", id);
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                
+                return affectedRows > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting media: {ex.Message}");
+                return false;
+            }
         }
 
         public bool UpdateMedia(BaseMedia updatedMedia, int id)
         {
-            if (_mediaStore.ContainsKey(id))
-            {
-                _mediaStore[id] = updatedMedia;
-                return true;
-            }
+            if (updatedMedia == null || string.IsNullOrWhiteSpace(updatedMedia.Title) || string.IsNullOrWhiteSpace(updatedMedia.MediaType))
+                return false;
 
-            return false;
+            try
+            {
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                const string sql = @"
+                    UPDATE media
+                    SET
+                    title = @title,
+                    description = @description,
+                    media_type = @mediaType,
+                    release_year = @releaseYear,
+                    age_restriction = @ageRestriction,
+                    genres = @genres
+                    WHERE id = @id;
+                     ";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("title", updatedMedia.Title);
+                cmd.Parameters.AddWithValue("description", (object)updatedMedia.Description ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("mediaType", updatedMedia.MediaType);
+                cmd.Parameters.AddWithValue("releaseYear", updatedMedia.ReleaseYear.HasValue ? (object)updatedMedia.ReleaseYear.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("ageRestriction", updatedMedia.AgeRestriction.HasValue ? (object)updatedMedia.AgeRestriction.Value : DBNull.Value);
+                cmd.Parameters.AddWithValue("genres", updatedMedia.Genres != null ? updatedMedia.Genres.ToArray() : new string[] { });
+                cmd.Parameters.AddWithValue("creatorId", updatedMedia.UserId);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating media: {ex.Message}");
+                return false;
+            }
         }
 
         public IReadOnlyCollection<BaseMedia> GetAllMedia()
         {
-            return _mediaStore.Values.ToList().AsReadOnly();
+            throw new NotImplementedException();
         }
     }
 }

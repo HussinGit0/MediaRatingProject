@@ -4,7 +4,7 @@
     {
         public MovieMedia() { }
 
-        public MovieMedia(int id, string title, string description, string[] genres, int year, int ageRestriction) : base(id, title, description, genres, year, ageRestriction)
+        public MovieMedia(int id, string title, string description, List<string> genres, int year, int ageRestriction) : base(id, title, description, genres, year, ageRestriction)
         {
         }
     }

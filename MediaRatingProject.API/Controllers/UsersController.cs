@@ -1,10 +1,12 @@
 ﻿namespace MediaRatingProject.API.Controllers
 {
+    using MediaRatingProject.API.DTOs;
     using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
-    using MediaRatingProject.API.DTOs;
+    using MediaRatingProject.Data.Ratings;
     using MediaRatingProject.Data.Stores;
     using MediaRatingProject.Data.Users;
+    using Npgsql;
     using System.Text.Json;
 
     public class UsersController
@@ -12,7 +14,7 @@
         private UserStore _userStore;
         public readonly ITokenService _tokenService;
 
-        public UsersController(UserStore store, ITokenService jwtService)
+        public UsersController(UserStore store, FavoriteStore ratingStore, ITokenService jwtService)
         {
             _userStore = store;
             _tokenService = jwtService;
@@ -29,7 +31,7 @@
             {
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 UserDTO userDto = JsonSerializer.Deserialize<UserDTO>(request.Body, options);
-                
+
                 if (userDto == null || string.IsNullOrWhiteSpace(userDto.Username) || string.IsNullOrWhiteSpace(userDto.Password))
                     return ResponseHandler.BadRequest("Invalid username or password.");
 
@@ -66,7 +68,7 @@
             {
                 var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
                 UserDTO userDto = JsonSerializer.Deserialize<UserDTO>(request.Body, options);
-                
+
                 if (userDto == null || string.IsNullOrWhiteSpace(userDto.Username) || string.IsNullOrWhiteSpace(userDto.Password))
                     return ResponseHandler.BadRequest("Invalid username or password.");
 
@@ -75,7 +77,7 @@
                     return ResponseHandler.Unauthorized("Invalid username or password.");
 
                 // Generate JWT token to return.
-                var token =_tokenService.GenerateToken(existingUser.Username);
+                var token = _tokenService.GenerateToken(existingUser.Username);
 
                 return ResponseHandler.Ok("Login successful.", new { token });
             }
@@ -114,6 +116,21 @@
             catch (Exception ex)
             {
                 return ResponseHandler.BadRequest($"Error fetching user: {ex.Message}");
+            }
+        }
+
+        public int? GetUserIdByUsername(ParsedRequestDTO request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.UserName))
+                    return null;
+                var user = _userStore.GetUserByUsername(request.UserName);
+                return user?.Id;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS favorites CASCADE;
+DROP TABLE IF EXISTS rating_likes CASCADE;
+DROP TABLE IF EXISTS ratings CASCADE;
+DROP TABLE IF EXISTS media CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
 CREATE TABLE media (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
@@ -5,14 +17,10 @@ CREATE TABLE media (
     media_type TEXT NOT NULL CHECK (media_type IN ('movie', 'series', 'game')),
     release_year INT,
     age_restriction INT,
-    genres TEXT[]
+    genres TEXT[],
+    creator_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-);
 
 CREATE TABLE ratings (
     id SERIAL PRIMARY KEY,
@@ -27,7 +35,6 @@ CREATE TABLE ratings (
 CREATE TABLE rating_likes (
     rating_id INT REFERENCES ratings(id) ON DELETE CASCADE,
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    is_like BOOLEAN NOT NULL,
     PRIMARY KEY (rating_id, user_id)
 );
 

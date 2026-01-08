@@ -4,7 +4,7 @@
     {
         public GameMedia() { }
 
-        public GameMedia(int id, string title, string description, string[] genres, int year, int ageRestriction) : base(id, title, description, genres, year, ageRestriction)
+        public GameMedia(int id, string title, string description, List<string> genres, int year, int ageRestriction) : base(id, title, description, genres, year, ageRestriction)
         {
         }
     }

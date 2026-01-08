@@ -6,19 +6,11 @@
 
     public class UserStore
     {
-        /// <summary>
-        /// ID counter to assign unique IDs to each media added. It never goes down, even if media is removed.
-        /// </summary>
-        private int _idCount;
-        private Dictionary<int, BaseUser> _userStore;
-
         private readonly string _connectionString;
 
-        public UserStore()
+        public UserStore(string connectionString)
         {
-            _idCount = 1;
-            _userStore = new Dictionary<int, BaseUser>();
-            _connectionString = "Host=localhost;Port=5432;Database=mrp;Username=mrp_user;Password=mrp_pass";
+            _connectionString = connectionString;
         }
 
         public bool CreateUser(BaseUser user)
@@ -140,6 +132,11 @@
             };
         }
 
+        /// <summary>
+        /// Gets a user by its Username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public BaseUser GetUserByUsername(string username)
         {
             using (var conn = new NpgsqlConnection(_connectionString))
