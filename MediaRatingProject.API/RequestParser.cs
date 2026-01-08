@@ -33,7 +33,7 @@
                     parsedRequestDTO = ParsePUTRequest(request, body);
                     break;
                 case "DELETE":
-                    parsedRequestDTO =  ParseDELETERequest(request, body);
+                    parsedRequestDTO = ParseDELETERequest(request, body);
                     break;
                 default:
                     parsedRequestDTO = new() { IsSuccessful = false };
@@ -165,7 +165,9 @@
             else if (request.Url.AbsolutePath == EndPoints.MEDIA_REQUEST)
             {
                 requestDTO.Path = EndPoints.MEDIA_REQUEST;
-                Console.WriteLine("GET: List media entries");
+
+                // EXTRACT SEARCH PARAMETERS HERE
+                parameters = ExtractQueryParameters(request);
             }
             else if (request.Url.AbsolutePath == EndPoints.LEADERBOARD_REQUEST)
             {
@@ -253,13 +255,30 @@
                 Console.WriteLine($"DELETE: Delete rating ID {parameters["ratingId"]}");
             }
             else
-            {                
+            {
                 requestDTO.IsSuccessful = false;
                 Console.WriteLine($"=============\nDELETE request to unknown endpoint: {request.Url.AbsolutePath}\n=============");
             }
 
             requestDTO.Parameters = parameters;
             return requestDTO;
+        }
+
+
+        private Dictionary<string, string> ExtractQueryParameters(HttpListenerRequest request)
+        {
+            Dictionary<string, string> parameters = new();
+
+            // request.QueryString is a NameValueCollection
+            foreach (string key in request.QueryString.AllKeys)
+            {
+                if (key != null)
+                {
+                    parameters[key] = request.QueryString[key] ?? "";
+                }
+            }
+
+            return parameters;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Npgsql;
+﻿using MediaRatingProject.Data.Media;
+using MediaRatingProject.Data.Ratings;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,53 @@ namespace MediaRatingProject.Data.Stores
         public FavoriteStore(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public List<BaseMedia> GetFavoritesByUserID(int? userId)
+        {
+            var favorites = new List<BaseMedia>();
+            if (userId <= 0) return favorites;
+
+            try
+            {
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                const string sql = @"
+                SELECT m.id, m.title, m.description, m.media_type, m.release_year, m.age_restriction, m.genres, m.creator_id
+                FROM media m
+                JOIN favorites f ON m.id = f.media_id
+                WHERE f.user_id = @userId;
+            ";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("userId", userId);
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var media = new BaseMedia
+                    {
+                        Id = reader.GetInt32(0),
+                        Title = reader.GetString(1),
+                        Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                        MediaType = reader.GetString(3),
+                        ReleaseYear = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                        AgeRestriction = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5),
+                        Genres = reader.IsDBNull(6) ? new List<string>() : reader.GetFieldValue<string[]>(6).ToList(),
+                        UserId = reader.GetInt32(7),
+                        Ratings = new List<Rating>()
+                    };
+
+                    favorites.Add(media);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching favorites: {ex.Message}");
+            }
+
+            return favorites;
         }
 
         /// <summary>

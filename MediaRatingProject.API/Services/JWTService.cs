@@ -63,6 +63,9 @@
         {
             username = null;
 
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+
             // First, check if token exists in our store
             if (!_tokenStore.ContainsKey(token))
                 return false;

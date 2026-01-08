@@ -12,8 +12,9 @@
         public int? ReleaseYear { get; set; }
         public int? AgeRestriction { get; set; }
         public List<Rating> Ratings { get; set; }
-        public List<Favorite> FavoritedBy { get; set; }
-        public float AverageRating { get; set; }
+        public int RatingCount { get; set; }
+        public int FavoriteCount { get; set; }
+        public double AverageRating { get; set; }
         public int? UserId { get; set; } 
         public string UserCreator { get; set; } 
         public string MediaType { get; set; }
@@ -31,8 +32,7 @@
             this.Genres = genres;
             this.ReleaseYear = year;
             this.AgeRestriction = ageRestriction;
-            this.Ratings = new();
-            this.FavoritedBy = new();
+            this.Ratings = new();            
         }
 
         public override string ToString()

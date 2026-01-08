@@ -6,7 +6,7 @@
     {
         public int Id { get; set; }
         public BaseUser User { get; set; }
-        public BaseMedia Media { get; set; }
+        public MediaSummaryDTO Media { get; set; }
         public bool Approved { get; set; }
         public int Score { get; set; }
         public string? Comment { get; set; }

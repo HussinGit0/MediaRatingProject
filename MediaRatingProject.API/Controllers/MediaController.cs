@@ -9,20 +9,21 @@
     public class MediaController
     {
         private readonly MediaStore _mediaStore;
-        private readonly RatingStore _ratingStore;
-        public MediaController(MediaStore mediaStore, RatingStore ratingStore)
+        public MediaController(MediaStore mediaStore)
         {
             _mediaStore = mediaStore;
-            _ratingStore = ratingStore;
         }
 
-        public ResponseHandler GetAllMedia()
+        /// <summary>
+        /// Gets a leaderboard of the highest rated media.
+        /// </summary>
+        /// <returns>A list of all medias in order.</returns>
+        public ResponseHandler GetLeaderboard()
         {
             try
             {
-                var mediaList = _mediaStore.GetAllMedia();
-                var json = JsonSerializer.Serialize(mediaList);
-                return ResponseHandler.Ok("Fetched all media successfully.", json);
+                var mediaList = _mediaStore.GetLeaderboard();
+                return ResponseHandler.Ok("Fetched all media successfully.", mediaList);
             }
             catch (Exception ex)
             {
@@ -30,6 +31,63 @@
             }
         }
 
+        /// <summary>
+        /// Searches for media based on search parameters.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
+        public ResponseHandler SearchMedia(ParsedRequestDTO request)
+        {
+            try
+            {
+                // Query paramemetrs
+                request.Parameters.TryGetValue("title", out string? title);
+                request.Parameters.TryGetValue("mediaType", out string? mediaType);
+                request.Parameters.TryGetValue("sortBy", out string? sortBy);
+
+                // 
+                int? releaseYear = null;
+                if (request.Parameters.TryGetValue("releaseYear", out string? yearStr) && int.TryParse(yearStr, out int year))
+                    releaseYear = year;
+
+                int? ageRestriction = null;
+                if (request.Parameters.TryGetValue("ageRestriction", out string? ageStr) && int.TryParse(ageStr, out int age))
+                    ageRestriction = age;
+
+                double? minRating = null;
+                if (request.Parameters.TryGetValue("rating", out string? ratingStr) && double.TryParse(ratingStr, out double rating))
+                    minRating = rating;
+
+                string[]? genres = null;
+                if (request.Parameters.TryGetValue("genre", out string? genreStr) && !string.IsNullOrWhiteSpace(genreStr))
+                    genres = genreStr.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                // Call the store function
+                var mediaList = _mediaStore.SearchMedia(
+                    title: title,
+                    genres: genres,
+                    mediaType: mediaType,
+                    releaseYear: releaseYear,
+                    ageRestriction: ageRestriction,
+                    minRating: minRating,
+                    sortBy: sortBy ?? "title",
+                    ascending: true
+                );
+
+                return ResponseHandler.Ok("Media search results.", mediaList);
+            }
+            catch (Exception ex)
+            {
+                return ResponseHandler.BadRequest($"Error searching media: {ex.Message}");
+            }
+        }
+
+
+        /// <summary>
+        /// Gets a media by its id.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public ResponseHandler GetMediaById(ParsedRequestDTO request)
         {
             try
@@ -51,6 +109,11 @@
             }
         }
 
+        /// <summary>
+        /// Creates a new media entry.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public ResponseHandler CreateMedia(ParsedRequestDTO request)
         {
             try
@@ -113,6 +176,11 @@
 
         }
 
+        /// <summary>
+        /// Updates media information.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public ResponseHandler UpdateMedia(ParsedRequestDTO request)
         {
             if (!request.Parameters.TryGetValue("mediaId", out var idString))
@@ -159,7 +227,7 @@
                 // Copy unchanged values.
                 updatedMedia.Id = existingMedia.Id;
                 updatedMedia.Ratings = existingMedia.Ratings;
-                updatedMedia.FavoritedBy = existingMedia.FavoritedBy;
+                updatedMedia.FavoriteCount = existingMedia.FavoriteCount;
                 updatedMedia.AverageRating = existingMedia.AverageRating;   
                 updatedMedia.UserCreator = existingMedia.UserCreator;
                 updatedMedia.MediaType = mediaType;
@@ -196,6 +264,11 @@
             }
         }
 
+        /// <summary>
+        /// Deletes media if the requester is the creator.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public ResponseHandler DeleteMedia(ParsedRequestDTO request)
         {
             if (!request.Parameters.TryGetValue("mediaId", out var idString))

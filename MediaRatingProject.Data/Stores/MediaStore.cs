@@ -122,9 +122,15 @@ namespace MediaRatingProject.Data.Stores
                         Likes = new List<BaseUser>()
                     };
 
+                    if (!rating.Approved && !String.IsNullOrEmpty(rating.Comment))
+                       rating.Comment = "[AWAITING APPROVAL]"; // Hide comment if not approved
+
                     media.Ratings.Add(rating);
                 }
             }
+            
+            media.RatingCount = media.Ratings.Count;
+            media.AverageRating = media.RatingCount > 0 ? media.Ratings.Average(r => r.Score) : 0.0;
 
             // Fetch likes for each rating
             if (media.Ratings.Any())
@@ -148,9 +154,22 @@ namespace MediaRatingProject.Data.Stores
                     var rating = media.Ratings.FirstOrDefault(r => r.Id == ratingId);
                     if (rating != null)
                     {
-                        rating.LikeCount = likeCount; // Add a property in Rating class for this
+                        rating.LikeCount = likeCount;
                     }
                 }
+            }
+
+            // Fetch for favorites by users
+            const string favoritesCountSql = @"
+                SELECT COUNT(*) 
+                FROM favorites
+                WHERE media_id = @mediaId;
+                ";
+
+            using (var cmd = new NpgsqlCommand(favoritesCountSql, conn))
+            {
+                cmd.Parameters.AddWithValue("mediaId", id);
+                media.FavoriteCount = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
             return media;
@@ -176,7 +195,7 @@ namespace MediaRatingProject.Data.Stores
                 cmd.Parameters.AddWithValue("id", id);
 
                 int affectedRows = cmd.ExecuteNonQuery();
-                
+
                 return affectedRows > 0;
             }
             catch (Exception ex)
@@ -218,7 +237,7 @@ namespace MediaRatingProject.Data.Stores
                 cmd.Parameters.AddWithValue("creatorId", updatedMedia.UserId);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
-                
+
                 return rowsAffected > 0;
             }
             catch (Exception ex)
@@ -228,9 +247,144 @@ namespace MediaRatingProject.Data.Stores
             }
         }
 
-        public IReadOnlyCollection<BaseMedia> GetAllMedia()
+        public List<MediaSummaryDTO> GetLeaderboard()
         {
-            throw new NotImplementedException();
+            var leaderboard = new List<MediaSummaryDTO>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                // Aggregate average rating for each media
+                const string sql = @"
+                    SELECT m.id, m.title, COALESCE(m.description, '') AS description, COALESCE(AVG(r.score), 0) AS average_rating
+                    FROM media m
+                    LEFT JOIN ratings r ON r.media_id = m.id
+                    GROUP BY m.id, m.title, m.description
+                    ORDER BY average_rating DESC, m.title ASC;
+                    ";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    leaderboard.Add(new MediaSummaryDTO
+                    {
+                        Id = reader.GetInt32(0),
+                        Title = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        AverageRating = reader.GetInt32(3)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching leaderboard: {ex.Message}");                
+            }
+
+            return leaderboard;
         }
+
+        public List<MediaSummaryDTO> SearchMedia(string? title = null,
+                                                 string[]? genres = null,
+                                                 string? mediaType = null,
+                                                 int? releaseYear = null,
+                                                 int? ageRestriction = null,
+                                                 double? minRating = null,
+                                                 string sortBy = "title", // "title", "year", "score"
+                                                 bool ascending = true)
+        {
+            var results = new List<MediaSummaryDTO>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(_connectionString);
+                conn.Open();
+
+                // Base SQL which we will expand based on filters
+                var sql = @"
+                    SELECT m.id, m.title, COALESCE(m.description, '') AS description, COALESCE(AVG(r.score), 0.0) AS average_rating 
+                    FROM media m
+                    LEFT JOIN ratings r ON r.media_id = m.id
+                    WHERE 1=1
+                    ";
+
+                // Different parameters to add based on filters
+                var parameters = new List<NpgsqlParameter>();
+
+                if (!string.IsNullOrWhiteSpace(title))
+                {
+                    sql += " AND m.title ILIKE @title"; // ILIKE for case-insensitive search: https://www.datacamp.com/doc/postgresql/ilike
+                    parameters.Add(new NpgsqlParameter("title", $"%{title}%"));
+                }
+
+                if (!string.IsNullOrEmpty(mediaType))
+                {
+                    sql += " AND m.media_type = @mediaType";
+                    parameters.Add(new NpgsqlParameter("mediaType", mediaType));
+                }
+
+                if (releaseYear.HasValue)
+                {
+                    sql += " AND m.release_year = @releaseYear";
+                    parameters.Add(new NpgsqlParameter("releaseYear", releaseYear.Value));
+                }
+
+                if (ageRestriction.HasValue)
+                {
+                    sql += " AND m.age_restriction <= @ageRestriction";
+                    parameters.Add(new NpgsqlParameter("ageRestriction", ageRestriction.Value));
+                }
+
+                if (genres != null && genres.Length > 0)
+                {
+                    sql += " AND m.genres && @genres"; // && is PostgreSQL array overlap operator
+                    parameters.Add(new NpgsqlParameter("genres", genres));
+                }
+
+                // Group by needed because of AVG aggregation
+                sql += " GROUP BY m.id, m.title, m.description";
+
+                if (minRating.HasValue)
+                {
+                    sql += " HAVING COALESCE(AVG(r.score), 0) >= @minRating";
+                    parameters.Add(new NpgsqlParameter("minRating", minRating.Value));
+                }
+
+                // Sorting
+                string sortColumn = sortBy.ToLower() switch
+                {
+                    "year" => "m.release_year",
+                    "score" => "average_rating",
+                    _ => "m.title" 
+                };
+
+                sql += $" ORDER BY {sortColumn} {(ascending ? "ASC" : "DESC")}";
+
+                using var cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddRange(parameters.ToArray());
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    results.Add(new MediaSummaryDTO
+                    {
+                        Id = reader.GetInt32(0),
+                        Title = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        AverageRating = reader.GetDouble(3)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching media: {ex.Message}");
+            }
+
+            return results;
+        }
+
     }
 }

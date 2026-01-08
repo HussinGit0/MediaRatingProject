@@ -14,7 +14,7 @@
         private UserStore _userStore;
         public readonly ITokenService _tokenService;
 
-        public UsersController(UserStore store, FavoriteStore ratingStore, ITokenService jwtService)
+        public UsersController(UserStore store, ITokenService jwtService)
         {
             _userStore = store;
             _tokenService = jwtService;
@@ -91,6 +91,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets a user by its id.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public ResponseHandler GetUserByID(ParsedRequestDTO request)
         {
             try
@@ -119,6 +124,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets a user by its username.
+        /// </summary>
+        /// <param name="request">HTTP request DTO containing the important data.</param>
+        /// <returns>A response for the requester with a corresponding message.</returns>
         public int? GetUserIdByUsername(ParsedRequestDTO request)
         {
             try

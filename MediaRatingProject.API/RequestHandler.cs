@@ -10,6 +10,7 @@ namespace MediaRatingProject.API
         private readonly UsersController _usersController;
         private readonly MediaController _mediaController;
         private readonly FavoriteController _favoriteController;
+        private readonly RatingController _ratingController;
         private readonly ITokenService _tokenService;
 
         /// <summary>
@@ -21,11 +22,13 @@ namespace MediaRatingProject.API
             UsersController usersController,
             MediaController mediaController,
             FavoriteController favoriteController,
+            RatingController ratingController,
             ITokenService tokenService)
         {
             _usersController = usersController;
             _mediaController = mediaController;
             _favoriteController = favoriteController;
+            _ratingController = ratingController;
             _tokenService = tokenService;
         }
 
@@ -93,20 +96,20 @@ namespace MediaRatingProject.API
                     
 
                 case EndPoints.MEDIA_RATE_REQUEST:
-                    return ResponseHandler.Ok("Rate media endpoint hit.");
-                    
+                    return _ratingController.CreateRating(request);
+
 
                 case EndPoints.MEDIA_FAVORITE_REQUEST:
                     return _favoriteController.MarkFavorite(request);
 
 
                 case EndPoints.MEDIA_LIKE_REQUEST:
-                    return ResponseHandler.Ok("Like rating endpoint hit.");
-                    
+                    return _ratingController.LikeRating(request);
+
 
                 case EndPoints.RATINGS_ID_CONFIRM_REQUEST:
-                    return ResponseHandler.Ok("Confirm rating endpoint hit.");
-                    
+                    return _ratingController.ApproveRating(request);
+
 
                 default:
                     Console.WriteLine($"POST request to unknown path: {request.Path}");
@@ -130,15 +133,15 @@ namespace MediaRatingProject.API
 
 
                 case EndPoints.USERS_RATINGS_REQUEST:
-                    return ResponseHandler.Ok("Get user ratings endpoint hit.");
-                    
+                    return _ratingController.GetRatingsByUser(request);
+
 
                 case EndPoints.USERS_FAVORITES_REQUEST:
-                    return ResponseHandler.Ok("Get user favorites endpoint hit.");
-                    
+                    return _favoriteController.GetFavoritesByUserID(request);
+
 
                 case EndPoints.USERS_RECOMMENDATION_REQUEST:
-                    return ResponseHandler.Ok("Get user recommendations endpoint hit.");
+                    return ResponseHandler.Ok("Get user recommendations endpoint hit (NOT IMPLEMENTED).");
                     
 
                 case EndPoints.MEDIA_ID_REQUEST:                    
@@ -146,12 +149,12 @@ namespace MediaRatingProject.API
                     
 
                 case EndPoints.MEDIA_REQUEST:
-                    return _mediaController.GetAllMedia();
-                    
+                    return _mediaController.SearchMedia(request);
+
 
                 case EndPoints.LEADERBOARD_REQUEST:
-                    return ResponseHandler.Ok("Get leaderboard endpoint hit.");
-                    
+                    return _mediaController.GetLeaderboard();
+
 
                 default:
                     Console.WriteLine($"GET request to unknown path: {request.Path}");
@@ -178,8 +181,8 @@ namespace MediaRatingProject.API
                     
 
                 case EndPoints.RATINGS_ID_REQUEST:
-                    return ResponseHandler.Ok("Update rating endpoint hit.");
-                    
+                    return _ratingController.UpdateRating(request); 
+
 
                 default:
                     Console.WriteLine($"PUT request to unknown path: {request.Path}");
