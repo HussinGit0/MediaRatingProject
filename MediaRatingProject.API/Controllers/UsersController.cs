@@ -9,7 +9,7 @@
     using Npgsql;
     using System.Text.Json;
 
-    public class UsersController
+    public class UsersController: IUsersController
     {
         private IUserStore _userStore;
         public readonly ITokenService _tokenService;
@@ -34,10 +34,6 @@
 
                 if (userDto == null || string.IsNullOrWhiteSpace(userDto.Username) || string.IsNullOrWhiteSpace(userDto.Password))
                     return ResponseHandler.BadRequest("Invalid username or password.");
-
-                // Check if user already exists
-                //if (_userStore.GetUserByUsername(userDto.Username) != null)
-                //    return ResponseHandler.BadRequest("User with the same name already exists!");
 
                 // Create new user
                 var newUser = new User(userDto.Username, userDto.Password);

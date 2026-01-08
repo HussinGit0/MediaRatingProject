@@ -1,5 +1,6 @@
 ﻿namespace MediaRatingProject.API.Controllers
 {
+    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.Data.Media;
     using MediaRatingProject.Data.Ratings;
@@ -9,7 +10,7 @@
     using System;
     using System.Text.Json;
 
-    public class RatingController
+    public class RatingController: IRatingController
     {
         private readonly IRatingStore _ratingStore;
 

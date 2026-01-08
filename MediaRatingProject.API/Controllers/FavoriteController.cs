@@ -1,13 +1,14 @@
 ﻿namespace MediaRatingProject.API.Controllers
 {
+    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
-    using MediaRatingProject.Data.Stores;
     using MediaRatingProject.Data.StoreInterfaces;
+    using MediaRatingProject.Data.Stores;
 
     /// <summary>
     /// Class responsible for communicating with the favorite store.
     /// </summary>
-    public class FavoriteController
+    public class FavoriteController: IFavoriteController
     {
         private readonly IFavoriteStore _favoriteStore;
 

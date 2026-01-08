@@ -1,5 +1,6 @@
 ﻿namespace MediaRatingProject.API.Controllers
 {
+    using MediaRatingProject.API.Interfaces;
     using MediaRatingProject.API.Requests;
     using MediaRatingProject.Data.Media;
     using MediaRatingProject.Data.StoreInterfaces;
@@ -10,7 +11,7 @@
     /// <summary>
     /// Class responsible for communicating with the mediaStore
     /// </summary>
-    public class MediaController
+    public class MediaController:  IMediaController
     {
         private readonly IMediaStore _mediaStore;
         public MediaController(IMediaStore mediaStore)

@@ -10,10 +10,10 @@
     /// </summary>
     public class RequestHandler: IRequestHandler
     {
-        private readonly UsersController _usersController;
-        private readonly MediaController _mediaController;
-        private readonly FavoriteController _favoriteController;
-        private readonly RatingController _ratingController;
+        private readonly IUsersController _usersController;
+        private readonly IMediaController _mediaController;
+        private readonly IFavoriteController _favoriteController;
+        private readonly IRatingController _ratingController;
         private readonly ITokenService _tokenService;
 
         /// <summary>
@@ -22,10 +22,10 @@
         /// <param name="usersController">A class responsible for handling users.</param>
         /// <param name="mediaController">A class responsible for handling media entries.</param>
         public RequestHandler(
-            UsersController usersController,
-            MediaController mediaController,
-            FavoriteController favoriteController,
-            RatingController ratingController,
+            IUsersController usersController,
+            IMediaController mediaController,
+            IFavoriteController favoriteController,
+            IRatingController ratingController,
             ITokenService tokenService)
         {
             _usersController = usersController;
